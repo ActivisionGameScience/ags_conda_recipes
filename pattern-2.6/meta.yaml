@@ -1,0 +1,85 @@
+package:
+  name: pattern
+  version: !!str 2.6
+
+source:
+  fn: pattern-2.6.zip
+  url: https://pypi.python.org/packages/source/P/Pattern/pattern-2.6.zip
+  md5: 3327561b792720cd3744741c1c1b1939
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - pattern = pattern:main
+    #
+    # Would create an entry point called pattern that calls pattern.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - pattern
+    - pattern.db
+    - pattern.graph
+    - pattern.server
+    - pattern.text
+    - pattern.text.de
+    - pattern.text.en
+    - pattern.text.en.wordlist
+    - pattern.text.en.wordnet
+    - pattern.text.en.wordnet.pywordnet
+    - pattern.text.es
+    - pattern.text.fr
+    - pattern.text.it
+    - pattern.text.nl
+    - pattern.vector
+    - pattern.vector.svm
+    - pattern.web
+    - pattern.web.cache
+    - pattern.web.docx
+    - pattern.web.feed
+    - pattern.web.imap
+    - pattern.web.json
+    - pattern.web.locale
+    - pattern.web.oauth
+    - pattern.web.pdf
+    - pattern.web.soup
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://www.clips.ua.ac.be/pattern
+  license:  BSD License
+  summary: 'Web mining module for Python, with tools for scraping, natural language processing, machine learning, network analysis and visualization.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

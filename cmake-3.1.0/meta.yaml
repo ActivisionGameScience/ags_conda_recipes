@@ -1,0 +1,17 @@
+package:
+  name: cmake
+  version: 3.1.0
+
+source:
+  fn: cmake-3.1.0.tar.gz [not win]
+  fn: cmake-3.1.0-win32-x86.zip [win]
+  url: http://www.cmake.org/files/v3.1/cmake-3.1.0.tar.gz [not win]
+  url: http://www.cmake.org/files/v3.1/cmake-3.1.0-win32-x86.zip [win]
+  md5: 6da9011024a215073c3b390e9ed6ee21 [not win]
+
+build:
+  number: 0
+
+about:
+  home: http://www.cmake.org
+  license:  BSD 3-clause

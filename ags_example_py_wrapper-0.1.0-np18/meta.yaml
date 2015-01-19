@@ -1,0 +1,28 @@
+package:
+  name: ags_example_py_wrapper
+  version: 0.1.0
+
+source:
+  git_url: https://github.com/ActivisionGameScience/ags_example_py_wrapper.git
+  git_tag: master  # I didn't bother to tag the repo, so just pretend 'master' is version 0.1.0
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - numpy 1.8.2
+    - cffi
+    - ags_example_cpp_lib
+
+build:
+
+  # already linked relative to $ORIGIN, so we need to turn
+  # off conda's relocation mechanism because it screws it up
+  binary_relocation: false
+
+about:
+  home: https://github.com/ActivisionGameScience/ags_example_py_wrapper.git
+  license:  BSD 3-clause

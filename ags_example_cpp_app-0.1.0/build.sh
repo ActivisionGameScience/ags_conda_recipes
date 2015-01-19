@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mkdir build
+cd build
+cmake ../ -DBOOST_ROOT=$PREFIX -DAGS_EXAMPLE_CPP_LIB_ROOT=$PREFIX -DCMAKE_INSTALL_PREFIX=$PREFIX
+
+make
+make install

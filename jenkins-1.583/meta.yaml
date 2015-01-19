@@ -1,0 +1,24 @@
+
+package:
+    name: jenkins
+    version: 1.583
+source:
+    fn: jenkins.war
+    url: http://mirrors.jenkins-ci.org/war/1.583/jenkins.war
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - jdk
+    run:
+        - jdk
+
+#test:
+#    commands:
+
+about:
+    home: http://jenkins-ci.org/
+    license: MIT License
+

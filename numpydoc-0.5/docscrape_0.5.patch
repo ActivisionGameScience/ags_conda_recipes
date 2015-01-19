@@ -1,0 +1,22 @@
+--- numpydoc/docscrape.py	2014-09-17 16:49:15.222705200 +0000
++++ numpydoc/docscrape-new.py	2014-09-17 16:52:28.541861300 +0000
+@@ -102,6 +102,7 @@
+             'Other Parameters': [],
+             'Attributes': [],
+             'Methods': [],
++            'Side Effects': [],
+             'See Also': [],
+             'Notes': [],
+             'Warnings': [],
+@@ -394,9 +395,10 @@
+         for param_list in ('Parameters', 'Returns', 'Other Parameters',
+                            'Raises', 'Warns'):
+             out += self._str_param_list(param_list)
++        out += self.__str_side_effects()
+         out += self._str_section('Warnings')
+         out += self._str_see_also(func_role)
+-        for s in ('Notes','References','Examples'):
++        for s in ('Side Effects','Notes','References','Examples'):
+             out += self._str_section(s)
+         for param_list in ('Attributes', 'Methods'):
+             out += self._str_param_list(param_list)

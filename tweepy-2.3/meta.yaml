@@ -1,0 +1,58 @@
+package:
+  name: tweepy
+  version: !!str 2.3
+
+source:
+    fn: tweepy-2.3.0.tar.gz
+    url: https://pypi.python.org/packages/source/t/tweepy/tweepy-2.3.0.tar.gz
+    md5: 065c80d244360988c61d64b5dfb7e229
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # Would create an entry point called vertica-python that calls vertica-python.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - tweepy
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/tweepy/tweep
+  license:  MIT License
+  summary: 'A native Python client for accessing the Twitter API.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

@@ -1,0 +1,18 @@
+package:
+  name: automake
+  version: 1.15
+
+source:
+  fn: automake-1.15.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/automake/automake-1.15.tar.gz
+
+requirements:
+  build:
+    - autoconf
+
+  run:
+    - autoconf
+
+about:
+  home: https://www.gnu.org/software/automake/
+  license:  GPLv3

@@ -1,0 +1,62 @@
+package:
+  name: networkx_viewer
+  version: !!str 0.1.0
+
+source:
+  fn: networkx_viewer-0.1.0.zip
+  url: https://pypi.python.org/packages/source/n/networkx_viewer/networkx_viewer-0.1.0.zip
+  md5: cd545395ff1a7af89230d5c0c5a8f31f
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - networkx_viewer = networkx_viewer:main
+    #
+    # Would create an entry point called networkx_viewer that calls networkx_viewer.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - networkx >=1.4
+
+  run:
+    - python
+    - networkx >=1.4
+
+test:
+  # Python imports
+  imports:
+    - networkx_viewer
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://github.com/jsexauer/networkx_viewer
+  license:  GNU General Public License (GPL)
+  summary: 'Interactive viewer for networkx graphs.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

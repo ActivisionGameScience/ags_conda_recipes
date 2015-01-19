@@ -1,0 +1,23 @@
+package:
+  name: regex
+  version: 2014.08.28
+
+source:
+  fn: regex-2014.08.28.tar.gz
+  url: https://pypi.python.org/packages/source/r/regex/regex-2014.08.28.tar.gz
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - regex
+
+about:
+  home: https://code.google.com/p/mrab-regex-hg/
+  license: Python Software Foundation License

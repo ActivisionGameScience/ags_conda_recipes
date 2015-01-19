@@ -1,0 +1,64 @@
+package:
+  name: numpydoc
+  version: !!str 0.5
+
+source:
+  fn: numpydoc-0.5.tar.gz
+  url: https://pypi.python.org/packages/source/n/numpydoc/numpydoc-0.5.tar.gz
+  md5: 6feac1f625ad0df5a11c7b60f920ac1b
+
+  patches:
+   # List any patch files here
+   - docscrape_0.5.patch
+   - docscrape_sphinx_0.5.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - numpydoc = numpydoc:main
+    #
+    # Would create an entry point called numpydoc that calls numpydoc.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - sphinx
+
+  run:
+    - python
+    - sphinx
+
+test:
+  # Python imports
+  imports:
+    - numpydoc
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/numpy/numpydoc
+  license:  BSD License
+  summary: 'Sphinx extension to support docstrings in Numpy format'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

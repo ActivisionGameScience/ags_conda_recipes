@@ -1,0 +1,20 @@
+package:
+  name: pkg-config
+  version: 0.25
+
+source:
+  fn: pkg-config-0.25.tar.gz
+  url: http://pkgconfig.freedesktop.org/releases/pkg-config-0.25.tar.gz
+
+build:
+
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: https://pkgconfig.freedesktop.org
+  license:  

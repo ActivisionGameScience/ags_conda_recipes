@@ -1,0 +1,67 @@
+package:
+  name: bottle-cork
+  version: !!str 0.10
+
+source:
+  fn: bottle-cork-0.10.tar.gz
+  url: https://pypi.python.org/packages/source/b/bottle-cork/bottle-cork-0.10.tar.gz
+  md5: b3ea8fc2ca1f83f22141ad4b97a0cf39
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - bottle-cork = bottle-cork:main
+    #
+    # Would create an entry point called bottle-cork that calls bottle-cork.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - beaker
+    - bottle
+    - pycrypto
+    - setuptools
+
+  run:
+    - python
+    - beaker
+    - bottle
+    - pycrypto
+    - setuptools
+
+test:
+  # Python imports
+  imports:
+    - cork
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://cork.firelet.net/
+  license:  GNU Lesser General Public License v3 (LGPLv3)
+  summary: 'Authentication/Authorization library for Bottle'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

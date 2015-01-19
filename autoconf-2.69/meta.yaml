@@ -1,0 +1,16 @@
+package:
+  name: autoconf
+  version: 2.69
+
+source:
+  fn: autoconf-2.69.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/autoconf/autoconf-2.69.tar.gz
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: https://www.gnu.org/software/autoconf/
+  license:  GPLv3

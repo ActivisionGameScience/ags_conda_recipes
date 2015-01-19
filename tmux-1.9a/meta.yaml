@@ -1,0 +1,23 @@
+package:
+  name: tmux
+  version: 1.9a
+
+source:
+  git_url: http://git.code.sf.net/p/tmux/tmux-code
+  git_tag: 1.9a
+
+requirements:
+  build:
+    - automake
+    - libtool
+    - pkg-config
+    - ncurses
+    - libevent
+
+  run:
+    - ncurses
+    - libevent
+
+about:
+  home: tmux.sourceforge.net
+  license:  BSD

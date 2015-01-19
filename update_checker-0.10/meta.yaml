@@ -1,0 +1,62 @@
+package:
+  name: update_checker
+  version: !!str 0.10
+
+source:
+  fn: update_checker-0.10.tar.gz
+  url: https://pypi.python.org/packages/source/u/update_checker/update_checker-0.10.tar.gz
+  md5: d890a78d7a9a50464ed243de265fb390
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - update_checker = update_checker:main
+    #
+    # Would create an entry point called update_checker that calls update_checker.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - requests >=1.0.2
+
+  run:
+    - python
+    - requests >=1.0.2
+
+test:
+  # Python imports
+  imports:
+    - update_checker
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/bboe/update_checker
+  license:  BSD License
+  summary: 'A python module that will check for package updates.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

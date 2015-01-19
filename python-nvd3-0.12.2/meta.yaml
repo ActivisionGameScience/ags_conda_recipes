@@ -1,0 +1,67 @@
+package:
+  name: python-nvd3
+  version: !!str 0.12.2
+
+source:
+  fn: python-nvd3-0.12.2.tar.gz
+  url: https://pypi.python.org/packages/source/p/python-nvd3/python-nvd3-0.12.2.tar.gz
+  md5: f92f3793305d6e82188054289ad636e6
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  preserve_egg_dir: True
+  entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - python-nvd3 = python-nvd3:main
+    #
+    # Would create an entry point called python-nvd3 that calls python-nvd3.main()
+
+    - nvd3 = nvd3:_main
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - awesome-slugify
+    - jinja2 >=2.7.2
+
+  run:
+    - python
+    - setuptools
+    - awesome-slugify
+    - jinja2 >=2.7.2
+
+test:
+  # Python imports
+  imports:
+    - nvd3
+
+  commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+      #- nvd3 --help
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://github.com/areski/python-nvd3
+  license:  MIT License
+  summary: 'Python NVD3 - Chart Library for d3.js'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

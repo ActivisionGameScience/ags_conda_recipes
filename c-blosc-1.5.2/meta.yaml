@@ -1,0 +1,21 @@
+package:
+  name: c-blosc
+  version: 1.5.2
+
+source:
+  fn: v1.5.2.tar.gz
+  url: https://github.com/Blosc/c-blosc/archive/v1.5.2.tar.gz 
+  md5: 487d0cb7635862a8435c67b9fe01abfa
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+
+  run:
+
+about:
+  home: http://www.blosc.org
+  license:  MIT
