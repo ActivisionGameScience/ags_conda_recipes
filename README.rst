@@ -53,8 +53,8 @@ better.  Originally we were installing python packages in our global
 it only works *well* for pure python code.
 
 
-Conda
------
+What is conda?
+--------------
 
 ``conda`` keeps the good aspects of each of these package managers
 and jettisons the bad.  It handles native libraries without
@@ -81,8 +81,8 @@ These various possibilities can be mixed together because ``conda``
 supports multiple simultaneous "channels".
 
 
-Anaconda
---------
+What is Anaconda?
+-----------------
 
 ``Anaconda`` is a specific set of packages that is being
 maintained by Continuum, Inc. (http://www.continuum.io).  Most of
@@ -126,8 +126,8 @@ The third is a python module that wraps the in-house library, i.e. exposes a pyt
 around a raw C binary.  Again we manage the packaging with ``conda``.
 
 
-Installation
-============
+First steps: install conda
+==========================
 
 First, start from the most spartan machine that you can find.  Really punish yourself.
 I started with this barebones CentOS5 vagrant box:  
@@ -177,10 +177,13 @@ Now update everything in your root environment (and install some more utility pa
     conda install jinja2 git conda-build binstar
     
 
-ActivisionGameScience development environment
----------------------------------------------
+Try out our environment!  
+------------------------
 
-Clone the current repository::
+You are ready to try out our ActivisionGameScience dev environment.  Even if you
+don't like it, it should give you an idea of the possibilities.
+
+Clone the current repository (that you are reading)::
 
     git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
 
@@ -188,8 +191,10 @@ or, alternatively, just grab the file::
 
     ags_dev-0.1.0-linux-64.export
 
-This contains an exact specification of packages that we use regularly.  Now you
-can create  your own ``agsdev`` environment::
+This contains an exact specification of packages that we like.  Some of
+them come from ``Anaconda``, but many of them come from our own channel.
+Now you can create  your own ``agsdev`` environment (name it whatever
+you want)::
 
     conda create -n agsdev --file agsdev-0.1.0-linux-64.export
 
@@ -200,6 +205,10 @@ a cache of downloaded tarballs.
 You can "activate" the environment like this::
 
     source activate agsdev
+
+Go ahead, test some things out!  You'll notice that everything is
+there that I complained about (``git``, ``cmake``, ``vim``, ``tmux``, ``zsh``,
+``java``, ``javac``, ``ant``, ``mvn``, and much more!).
 
 You can deactivate the environment like this (this puts you back into the root environment)::
 
@@ -212,8 +221,8 @@ the environment activated)::
     conda list --export > myenv-linux-64.export
 
 
-Building conda packages and uploading to binstar
-================================================
+How we built and uploaded packages to binstar
+=============================================
 
 In order to build a package for ``conda`` you'll need to write
 a "recipe".  Some recipes are so trivial that they can be
@@ -254,8 +263,8 @@ We publish our recipes and encourage pull requests.  In particular we
 want to encourage adding Windows and Mac support to our recipes.
 
 
-Build and upload to binstar
----------------------------
+Build and upload
+----------------
 
 *Make sure that you are in the root environment for this step*.
 
@@ -319,8 +328,8 @@ are thinking of this as a super-proprietary in-house library.  We want
 to publish the package to our own private ``conda`` repository.
 
 
-Private conda repository
-------------------------
+Behind-the-firewall conda repository
+------------------------------------
 
 We'll make the simplest private conda repository possible: a directory of tarballs.  
 First create the following directory::
