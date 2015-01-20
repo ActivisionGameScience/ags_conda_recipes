@@ -286,6 +286,14 @@ You can build ``tweepy-2.3/`` with the following command (from its parent direct
 
 Assuming that everything built correctly there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``.
 
+    Pro tip: for packages that compile C/C++ code (including ``cython``), you should always build 
+    with the oldest compiler possible (at least for gcc).  I use a RHEL5 box to
+    build our packages because more modern versions of ``libc`` will be compatible with those binaries
+    (but not the other way around).
+
+    Unfortunately, MSVC binaries are not always forward ABI compatible, so the same advice may
+    not apply there
+
 Since our organization on ``binstar`` is called ``ActivisionGameScience`` we uploaded
 the package with the following command::
 
