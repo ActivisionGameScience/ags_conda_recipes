@@ -256,13 +256,13 @@ appropriately (i.e. ``tweepy/`` becomes ``tweepy-2.3/``).
 This is because build recipes might need to vary 
 from version to version.
 
-For packages that link against ``numpy`` I have found it
-necessary to edit ``meta.yaml`` and pin the version explicitly::
-
-    - numpy 1.8.2
-
-then rename the directory to remind us that we pinned the version,
-i.e. ``gensim/`` becomes ``gensim-0.10.1-np18/``.
+    Pro tip: for packages that link against ``numpy`` I have found it
+    necessary to edit ``meta.yaml`` and pin the version explicitly::
+    
+        - numpy 1.8.2
+    
+    then rename the directory to remind us that we pinned the version,
+    i.e. ``gensim/`` becomes ``gensim-0.10.1-np18/``.
 
 We are not so lucky with other packages (e.g. ``jdk`` and ``vim``).
 Their recipes must be painstakingly written and often require 
