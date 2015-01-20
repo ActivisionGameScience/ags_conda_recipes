@@ -35,9 +35,9 @@ and gcc 4.4?  Working on those platforms is like slipping back in time
 
 Even if you create updated RPMs or DEBs, are you able to get 
 them approved and deployed into production?  Doubtful.  
-Even if so, how many months and signatures will it take?
+If so, how many months and signatures will it take?
 If you are starting a new project today, should it be subject to
-the same environment that a different 10-year-old project requires?
+the same environment that a 10-year-old project requires?
 
 Point (3) is ugly if you need to deploy across many
 environments.  Do you want to maintain separate builds for RHEL5, RHEL6,
@@ -46,21 +46,21 @@ already difficult enough.
 
 Point (4) is a problem even for the Linux-only crowd.  Which distro?  
 
-As far as system-level lock-in is concerned, ``pip`` is only somewhat
-better.  Originally we were installing python packages in our global
-``site-packages``, but now at least we have ``virtualenv``.  With
-"environments" we are freed from system lock-in.  Unfortunately
-it only works *well* for pure python code.
+As far as system-level lock-in is concerned, ``pip`` is somewhat
+better.  Thanks to ``virtualenv`` we're not installing packages
+to our global ``site-packages`` anymore.  Too bad this only works well
+for python code.
 
 
 What is conda?
 --------------
 
-``conda`` keeps the good aspects of each of these package managers
-and jettisons the bad.  It handles native libraries without
-being locked in at the system level.  No root access is necessary.  
+``conda`` keeps the good parts of these package managers
+and jettisons the bad.  It handles native libraries (and python libraries),
+but without being locked in at the system level.  No root access is necessary.  
 
-Like ``virtualenv``, ``conda`` also has a notion of "environment".
+Like ``virtualenv``, ``conda`` achieves this through "environments" (but
+a more sophisticated version to handle native binaries as well).
 You can have as many environments as you like (perhaps one per project).
 They are lightweight and easy to deploy like ``docker``, but
 fully cross-platform (Linux, Windows, and Mac).
@@ -70,12 +70,12 @@ RHEL5 box within minutes - no permission from IT is necessary.
 
 ``conda``'s package repository (analogous to ``pypi``) is called ``binstar``.  
 Continuum, Inc., maintains many public packages on there.  ``binstar`` also 
-allows you to maintain your own public and private packages, and
+allows you to upload your own public and private packages, and
 group yourselves into *organizations* (similar to how github works).
 
-For in-house packages that cannot leave your firewall you can maintain your
+For in-house packages (that cannot leave your firewall) you can maintain your
 own package repository.  This can be as simple as a directory
-containing tarballs.
+containing tarballs (a "poor-man's ``binstar``").
 
 These various possibilities can be mixed together because ``conda``
 supports multiple simultaneous "channels".
@@ -84,7 +84,7 @@ supports multiple simultaneous "channels".
 What is Anaconda?
 -----------------
 
-``Anaconda`` is a specific set of packages that is being
+``Anaconda`` is a specific set of packages being
 maintained by Continuum, Inc. (http://www.continuum.io).  Most of
 these packages are free, but some (like ``mkl``) require a license.
 You can use ``Anaconda`` or not.  The price (a few hundred dollars per
@@ -92,7 +92,7 @@ year per developer) is well-worth the saved time in our experience.
 We are not associated with Continuum.
 
 The examples below build on top of ``Anaconda``, but you don't
-need to buy a license to do the tutorial.  After 30 days the ``mkl``,
+need to buy a license if you don't want to.  After 30 days the ``mkl``,
 ``iopro``, and ``accelerate`` trials will simply expire and stop working.
 If you don't need ``numpy`` then you won't miss it.
 
@@ -100,13 +100,17 @@ If you don't need ``numpy`` then you won't miss it.
 About this tutorial
 -------------------
 
-This tutorial describes these aspects with a full-fledged example.
-It covers how to install ``conda``, then how to create an environment
-that is a mix of ``Anaconda`` and our own (Activision) builds of popular software
-(i.e. stuff not in ``Anaconda`` that we wanted).
+This tutorial describes how to use ``conda`` in a production environment (including
+best practices and complicated codebases).
+We believe there is no other document like this currently.
 
-Our list of packages is growing steadily.  The recipes that we use to
-build each are contained in this repo (that you are reading now).  Currently most recipes
+It covers how to install ``conda``, then how to create a dev environment
+that is a mix of ``Anaconda`` and our own builds of popular software
+(i.e. useful stuff missing from ``Anaconda``).  You are invited to use and
+contribute to our environment, but otherwise you can gain inspiration.
+
+Our list of packages is growing steadily.  The recipes that we wrote
+are contained in this repo (that you are reading now).  Currently most recipes
 only build in Linux, although we have added Windows support to some.  Mac
 support is lagging.
 
@@ -115,21 +119,22 @@ of waiting (to download) before it is installed.  After this,
 we will pick a package at random and
 demonstrate how we originally built it (from a recipe) and uploaded it to ``binstar``.
 
-Finally, we describe 3 projects that we have posted on github.  These
-are examples of how to use ``conda`` to manage your own "in-house" codebase.  
+Finally, we describe 3 example projects that we have posted on github.  These
+are full-fledged examples of how to use ``conda`` to manage your own "in-house"
+packages and dependencies.
 
 The first is a C++ library that builds using ``cmake``.  It is a library
-that depends on a third-party library.  The second is a C++ application that depends on
-both.  We see how ``conda`` handles the dependency management.
+that depends on the third-party library ``c-blosc``.  The second is a C++ application that depends on
+both.  We show how ``conda`` handles the dependency management.
 
 The third is a python module that wraps the in-house library, i.e. exposes a python API
-around a raw C binary.  Again we manage the packaging with ``conda``.
+around a raw C binary.  Again we manage the dependencies with ``conda``.
 
 
 First steps: install conda
 ==========================
 
-First, start from the most spartan machine that you can find.  Really punish yourself.
+Before starting, find the most spartan machine possible.  Really annoy yourself.
 I started with this barebones CentOS5 vagrant box:  
 http://tag1consulting.com/files/centos-5.9-x86-64-minimal.box.
 
@@ -138,26 +143,27 @@ It doesn't even have ``vim``!  It's missing ``tmux`` and ``zsh``,
 and the system python is 2.4.  You can forget about any of your favorite python libraries.
 
 I hate this machine (note: I was forced to work on a machine
-like this at a former job).
+like this once).
 
 Let's turn this machine into a joy.  Download the ``Miniconda`` installer 
 from http://conda.pydata.org/miniconda.html and run it::
 
     sh Miniconda-3.7.0-Linux_x86_64.sh
 
-If you allowed it to modify your ``.bashrc`` then close and reopen your terminal.  
-Otherwise you'll always have to enable the "root" environment manually::
+You can allow the installer to modify your ``.bashrc`` if you want.  If so
+then close and reopen your terminal.  
+Otherwise you'll always be required to enable the "root" environment manually::
 
     export PATH=~/miniconda/bin:$PATH
 
 Either way, typing ``where python`` should show ``~/miniconda/bin/python`` (or
 wherever you installed it).
 
-Only conda utility packages are allowed in the root environment.  Don't pollute
+Only conda-specific packages are allowed in the root environment.  Don't pollute
 it with anything else.  Your real environments will live below ``~/miniconda/envs``.
 
 If you want to use python 3 then I recommend having a separate ``conda``
-instance for it.  For example, you can download the ``Miniconda3`` installer
+instance for it.  You can download the ``Miniconda3`` installer
 and set up a separate root environment in ``/some/other/path/miniconda3``.
 
 Now edit your ``~/.condarc`` file and add both our ActivisionGameScience channel and the default
@@ -202,7 +208,10 @@ Go for a walk to let it download (takes about 30 minutes).
 Future installs will be almost instantaneous because ``conda`` keeps
 a cache of downloaded tarballs.
 
-You can "activate" the environment like this::
+Check out the directory ``~/miniconda/envs/agsdev/``.  There's your new
+environment.
+
+You can "activate" it like this::
 
     source activate agsdev
 
@@ -210,7 +219,7 @@ Go ahead, test some things out!  You'll notice that everything is
 there that I complained about (``git``, ``cmake``, ``vim``, ``tmux``, ``zsh``,
 ``java``, ``javac``, ``ant``, ``mvn``, and much more!).
 
-You can deactivate the environment like this (this puts you back into the root environment)::
+You can deactivate the environment similarly (this puts you back into the root environment)::
 
     source deactivate
 
@@ -224,20 +233,23 @@ the environment activated)::
 How we built and uploaded packages to binstar
 =============================================
 
+Now that you have our environment loaded and running, you
+might want to know how we built it.
+
 In order to build a package for ``conda`` you'll need to write
 a "recipe".  Some recipes are so trivial that they can be
-auto-generated by ``conda``.  Pure python libraries
-from ``pypi``, for example, can usually have their recipes auto-generated
-like this::
+auto-generated by ``conda``.  Most libraries from
+``pypi``, for example, can have their recipes auto-generated
+like in this example::
 
     conda skeleton pypi tweepy
 
 This creates a directory, ``tweepy/``, that contains
 the following files::
 
-    ``meta.yaml``
-    ``build.sh``
-    ``bld.bat``
+    meta.yaml
+    build.sh
+    bld.bat
 
 You should look at the version 
 in ``meta.yaml`` and rename the directory
@@ -253,46 +265,41 @@ necessary to edit ``meta.yaml`` and pin the version explicitly::
 then rename the directory to remind us that we pinned the version,
 i.e. ``gensim/`` becomes ``gensim-0.10.1-np18/``.
 
-Other packages (e.g. ``jdk`` and ``vim``) must have their
-recipes hand-written.  This can be a difficult process and often requires
+We are not so lucky with other packages (e.g. ``jdk`` and ``vim``).
+Their recipes must be painstakingly written and often require 
 extensive knowledge of various compilers (e.g. ``gcc``, ``clang``, ``cl``),
-their options and environment variables, and build
+their options, environment variables, and build
 tools (e.g. ``cmake``, ``make``, ``nmake``, Visual Studio projects, etc).
 
-We publish our recipes and encourage pull requests.  In particular we
-want to encourage adding Windows and Mac support to our recipes.
+We publish our recipes and encourage pull requests.  Our goal is to
+work together and, in particular, encourage adding Windows and Mac support to our recipes.
 
 
 Build and upload
 ----------------
 
-*Make sure that you are in the root environment for this step*.
+*Make sure that you are in the root environment for this step*.  Do a ``source deactivate`` to
+make sure.
 
 You can build ``tweepy-2.3/`` with the following command (from its parent directory)::
 
     conda build tweepy-2.3 
 
-Assuming that all went well there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``.
+Assuming that everything built correctly there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``.
 
 Since our organization on ``binstar`` is called ``ActivisionGameScience`` we were able
-to upload the package with the following command:
+to upload the package with the following command::
 
     binstar upload -u ActivisionGameScience ~/miniconda/conda-bld/linux-64/tweepy-2.3-py27.tar.bz2
-
-
-You can mimic this to upload your packages to your own personal account or organization.
-Alternatively, you can ask us to pull and build your recipe.  Then we'll be happy to
-upload your package to the ActivisionGameScience channel.
 
 
 How to manage your codebase with conda
 ======================================
 
 The real power of ``conda`` manifests itself when you want to manage your own code.
-Most shops (especially C/C++ groups) have their own home-brewed build system that
-is tightly coupled to the platform.  Even very experienced shops suffer from
-Rube Goldberg machines that suck at least one FT developer to maintain them (Google Chrome,
-``ninja`` is awesome, but ditch ``gyp`` please).
+Most shops (especially C/C++ groups) have their own home-brewed systems that
+are tightly coupled to the platform.  Even very experienced shops suffer from
+Rube Goldberg machines (Google Chrome, ``ninja`` is awesome, but rethink ``gyp`` please).
 
 With ``conda`` we can escape this mess in a cross-platform manner.  You can
 build code however you want, but use ``conda`` to handle the package and
@@ -318,13 +325,13 @@ and build the package::
 
     conda build ags_example_cpp_lib-0.1.0
 
-As always, when building and uploading new packages, make sure that you have
-*deactivated* all environments (so you are in the root environment).
+As always, when building packages, make sure that you have run ``source deactivate``
+beforehand so that you are in the root environment.
 
-The package is now in ``~/miniconda/conda-bld/linux-64``.
+The new package is now in ``~/miniconda/conda-bld/linux-64/``.
 
 However, we do *not* want to upload this to ``binstar``.  Recall that we
-are thinking of this as a super-proprietary in-house library.  We want
+are pretending that this is an in-house library.  We want
 to publish the package to our own private ``conda`` repository.
 
 
@@ -353,6 +360,70 @@ Go into the directory and reindex it (this must be done whenever adding a new pa
     cd /some/path/pkgs_inhouse/linux-64
     conda index
 
-We are done.  We could install the package in the usual ``conda`` way::
+We are done.  We can install the package in the usual ``conda`` way::
 
     conda install ags_example_cpp_lib
+
+and just as easily remove it::
+
+    conda remove ags_example_cpp_lib
+
+
+How it works
+++++++++++++
+
+To see how this works, it is easiest to look at the README in the
+repo for the project https://github.com/ActivisionGameScience/ags_example_cpp_lib.git.
+
+This shows how to build and install the library manually
+using ``cmake``.  The most important thing to notice is that ``cmake``
+needs ``c-blosc`` to be already installed.
+Its root location must be passed on the ``cmake`` command line using the
+argument ``-DCBLOSC_ROOT=...``.
+
+For completeness, you should also examine the ``cmake`` scripts::
+
+    CMakeLists.txt
+    cmake/Modules/FindCBLOSC.cmake
+
+to see how the headers and binaries are *actually* found (this is what
+the compiler wants).
+
+But how can we ensure that ``c-blosc`` will be installed?  For that matter,
+how can we ensure that ``cmake`` will be installed?  
+
+This is a dependency problem that is best left to ``conda``.
+Look at the recipes repo (that you are reading now) in the directory
+``ags_example_cpp_lib-0.1.0/``.  Reading the ``meta.yaml`` file you
+will see that both ``cmake`` and ``c-blosc`` are listed as build
+dependencies, and that ``c-blosc`` is repeated as a runtime dependency.
+
+Fortunately, both ``cmake`` and ``c-blosc`` happen to be packages in
+our binstar channel https://conda.binstar.org/ActivisionGameScience.  Hence
+``conda`` will know how to install them before attempting a build
+of ``ags_example_cpp_lib``.
+
+We had to write recipes for ``c-blosc`` and ``cmake`` as well.
+Look in their respective directories ``c-blosc-1.5.2/`` and ``cmake-3.1.0/``
+and read ``meta.yaml``.  You will see that ``c-blosc`` also
+uses ``cmake`` to build, but requires no further dependencies.
+``cmake`` requires no dependencies.  We were able to add them
+as packages to our channel by first building and uploading ``cmake``,
+then building and uploading ``c-blosc``.
+
+Now look at the Linux build script ``build.sh`` in the recipe
+for our toy library ``ags_example_cpp_lib-0.1.0/``.
+It contains the exact
+``cmake`` commands that are described in its README::
+
+    mkdir build
+    cd build
+    cmake ../ -DCBLOSC_ROOT=$PREFIX  -DCMAKE_INSTALL_PREFIX=$PREFIX
+
+    make
+    make install 
+
+(``$PREFIX`` will be filled in by ``conda`` at build time).
+
+So we see that ``cmake`` handles the build beautifully, and ``conda``
+handles the dependency management with equal finesse.
