@@ -445,12 +445,12 @@ Project 2: a C++ application using our library
 
 We do the same thing with the repo 
 https://github.com/ActivisionGameScience/ags_example_cpp_app.git, except this
-time without fewer comments.  This is a project that builds two executables:
+time with fewer comments.  This project builds two executables:
 ``ags_blosc_compress`` and ``ags_blosc_decompress``.  They are command-line
 utilities that perform blosc compression/decompresson.
 
-This project links against the library project ``ags_example_cpp_lib`` that we
-just built.  By transitivity it also links against the ``c-blosc`` binary.
+This project links against our library project ``ags_example_cpp_lib`` (that we
+just built).  By transitivity it also links against the ``c-blosc`` binary.
 
 As before, you could clone the repo and build it by hand using ``cmake`` (the README contains instructions).
 
@@ -470,7 +470,7 @@ The new package is now in ``~/miniconda/conda-bld/linux-64/``.  You can copy the
 tarball to your behind-the-firewall conda repository as before (don't forget to run ``conda index``).
 
 Like before, you should read both the ``conda`` recipe and the ``cmake`` scripts to
-understand how this build and dependency management works.
+understand how this build and dependency management worked.
 
 
 Project 3: a python wrapper around our C++ library
@@ -479,20 +479,29 @@ Project 3: a python wrapper around our C++ library
 We do the same thing with the repo 
 https://github.com/ActivisionGameScience/ags_example_py_wrapper.git.
 This is a project that installs a python module, ``ags_py_blosc_wrapper``,
-that wraps the underlying C code in python.  Look at the README
-in the project for details.
+that wraps our C++ library in ``ags_example_cpp_lib``.
+Look at the README in the project for details.
 
 Since this is pure python (the binding is done via ``cffi``), no linking
 is necessary.  There is no ``cmake`` code because there is no C/C++.  The
 build is handled by the usual ``setuptools``.
 
 However, we still need the ``ags_example_cpp_lib`` project to be installed
-at runtime.  Again, ``conda`` handles this dependency.  Look at the recipe
-``ags_example_py_wrapper_0.1.0/`` in this repo for details.
+at runtime.  Again, ``conda`` handles this dependency.  Here is the relevant
+section in ``meta.yaml`` in ``ags_example_py_wrapper_0.1.0/``::
 
-As before, you could clone the repo and build it by hand (the README contains instructions).
+    requirements:
+      build:
+        - python
+        - setuptools
+    
+      run:
+        - python
+        - numpy 1.8.2
+        - cffi
+        - ags_example_cpp_lib
 
-However, we have written a conda recipe to handle it.  Clone the recipes repo (that you are reading)::
+We can get the recipe like this::
 
     git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
     cd ags_conda_recipes
@@ -500,8 +509,5 @@ However, we have written a conda recipe to handle it.  Clone the recipes repo (t
 and build the package::
 
     conda build ags_example_py_wrapper-0.1.0
-
-As always, when building packages, make sure that you have run ``source deactivate``
-beforehand so that you are in the root environment.
 
 The new package can be copied to your behind-the-firewall conda repository like the others.
