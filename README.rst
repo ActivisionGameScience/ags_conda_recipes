@@ -97,12 +97,23 @@ need to buy a license if you don't want to.  After 30 days the ``mkl``,
 If you don't need ``numpy`` then you won't miss it.
 
 
+What about docker?
+------------------
+
+You can use ``conda`` inside a ``docker`` container if you want.  
+``docker`` solves an overlapping problem (lightweight isolation of 
+your application environment from the host), but the similarities end there.
+
+``conda`` is a package manager, not just for system packages, but also for
+your own packages.
+
+
 About this tutorial
 -------------------
 
-This tutorial describes how to use ``conda`` in a production environment (including
-best practices and complicated codebases).
-We believe there is no other document like this currently.
+This tutorial is an end-to-end example showing how to use ``conda`` in a production environment.
+We use it to manage both public packages and proprietary packages 
+(behind the firewall).  We believe there is no other document like this currently.
 
 It covers how to install ``conda``, then how to create a dev environment
 that is a mix of ``Anaconda`` and our own builds of popular software
