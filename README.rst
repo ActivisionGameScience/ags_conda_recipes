@@ -123,12 +123,12 @@ Finally, we describe 3 example projects that we have posted on github.  These
 are full-fledged examples of how to use ``conda`` to manage your own "in-house"
 packages and dependencies.
 
-The first is a C++ library that builds using ``cmake``.  It is a library
-that depends on the third-party library ``c-blosc``.  The second is a C++ application that depends on
+The first is a C++ library that builds using ``cmake``.  It 
+depends on the third-party library ``c-blosc``.  The second is a C++ application that depends on
 both.  We show how ``conda`` handles the dependency management.
 
-The third is a python module that wraps the in-house library, i.e. exposes a python API
-around a raw C binary.  Again we manage the dependencies with ``conda``.
+The third is a python module that wraps the C++ library.  This gives you a nice pythonic interface
+to the underlying C speed.  Again we manage the dependencies with ``conda``.
 
 
 First steps: install conda
@@ -140,24 +140,23 @@ http://tag1consulting.com/files/centos-5.9-x86-64-minimal.box.
 
 It has no ``git`` and no ``java`` (let alone ``javac``, ``maven``, and ``ant``).  
 It doesn't even have ``vim``!  It's missing ``tmux`` and ``zsh``, 
-and the system python is 2.4.  You can forget about any of your favorite python libraries.
+and the system python is 2.4.  You can forget your favorite python libraries.
 
-I hate this machine (note: I was forced to work on a machine
-like this once).
+I hate this machine (note: I've been forced to work on a machine like this several times).
 
 Let's turn this machine into a joy.  Download the ``Miniconda`` installer 
 from http://conda.pydata.org/miniconda.html and run it::
 
     sh Miniconda-3.7.0-Linux_x86_64.sh
 
-You can allow the installer to modify your ``.bashrc`` if you want.  If so
+Install ``conda`` wherever you like (I chose ``~/miniconda``).
+You can allow the installer to modify your ``.bashrc`` or not.  If so
 then close and reopen your terminal.  
-Otherwise you'll always be required to enable the "root" environment manually::
+If not then you'll always be required to enable the "root" environment manually::
 
     export PATH=~/miniconda/bin:$PATH
 
-Either way, typing ``where python`` should show ``~/miniconda/bin/python`` (or
-wherever you installed it).
+Either way, typing ``where python`` should show ``~/miniconda/bin/python``.
 
 Only conda-specific packages are allowed in the root environment.  Don't pollute
 it with anything else.  Your real environments will live below ``~/miniconda/envs``.
@@ -268,11 +267,11 @@ i.e. ``gensim/`` becomes ``gensim-0.10.1-np18/``.
 We are not so lucky with other packages (e.g. ``jdk`` and ``vim``).
 Their recipes must be painstakingly written and often require 
 extensive knowledge of various compilers (e.g. ``gcc``, ``clang``, ``cl``),
-their options, environment variables, and build
+options, environment variables, and build
 tools (e.g. ``cmake``, ``make``, ``nmake``, Visual Studio projects, etc).
 
 We publish our recipes and encourage pull requests.  Our goal is to
-work together and, in particular, encourage adding Windows and Mac support to our recipes.
+work together and, in particular, add Windows and Mac support to our recipes.
 
 
 Build and upload
@@ -287,10 +286,13 @@ You can build ``tweepy-2.3/`` with the following command (from its parent direct
 
 Assuming that everything built correctly there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``.
 
-Since our organization on ``binstar`` is called ``ActivisionGameScience`` we were able
-to upload the package with the following command::
+Since our organization on ``binstar`` is called ``ActivisionGameScience`` we uploaded
+the package with the following command::
 
     binstar upload -u ActivisionGameScience ~/miniconda/conda-bld/linux-64/tweepy-2.3-py27.tar.bz2
+
+Obviously I needed to input my personal account credentials, and my account was a member of our
+organization (like github).
 
 
 How to manage your codebase with conda
@@ -299,7 +301,7 @@ How to manage your codebase with conda
 The real power of ``conda`` manifests itself when you want to manage your own code.
 Most shops (especially C/C++ groups) have their own home-brewed systems that
 are tightly coupled to the platform.  Even very experienced shops suffer from
-Rube Goldberg machines (Google Chrome, ``ninja`` is awesome, but rethink ``gyp`` please).
+Rube Goldberg machines (hi Google Chrome, ``ninja`` is awesome, but rethink ``gyp`` please).
 
 With ``conda`` we can escape this mess in a cross-platform manner.  You can
 build code however you want, but use ``conda`` to handle the package and
@@ -309,8 +311,8 @@ We suggest building C/C++ projects with ``cmake``, and python projects with
 ``setuptools``.  Combined with ``conda`` this gives a fully cross-platform
 solution that requires almost zero "special case" code.
 
-Project 1: a wrapper around c-blosc
------------------------------------
+Project 1: a C++ wrapper around c-blosc
+---------------------------------------
 
 Look at the repo https://github.com/ActivisionGameScience/ags_example_cpp_lib.git.  This
 is a dumb wrapper around the popular ``c-blosc`` compression library.  You could
@@ -339,7 +341,7 @@ Behind-the-firewall conda repository
 ------------------------------------
 
 We'll make the simplest private conda repository possible: a directory of tarballs.  
-First create the following directory::
+First create some directory to hold your packages::
 
     mkdir /some/path/pkgs_inhouse
 
@@ -355,7 +357,7 @@ Next add a platform-specific subdirectory and copy your new package into it::
     mkdir /some/path/pkgs_inhouse/linux-64
     cp ~/miniconda/conda-bld/ags_example_cpp_lib-0.1.0.tar.bz2 /some/path/pkgs_inhouse/linux-64
 
-Go into the directory and reindex it (this must be done whenever adding a new package)::
+Go into the directory and index it (this must be repeated whenever adding a new package)::
 
     cd /some/path/pkgs_inhouse/linux-64
     conda index
@@ -364,7 +366,7 @@ We are done.  We can install the package in the usual ``conda`` way::
 
     conda install ags_example_cpp_lib
 
-and just as easily remove it::
+and remove it just as easily::
 
     conda remove ags_example_cpp_lib
 
@@ -372,13 +374,13 @@ and just as easily remove it::
 How it works
 ++++++++++++
 
-To see how this works, it is easiest to look at the README in the
+To see how ``conda`` handled the package management, it is easiest to look at the README in the
 repo for the project https://github.com/ActivisionGameScience/ags_example_cpp_lib.git.
 
-This shows how to build and install the library manually
+There you will find details describing how to build and install the library manually
 using ``cmake``.  The most important thing to notice is that ``cmake``
 needs ``c-blosc`` to be already installed.
-Its root location must be passed on the ``cmake`` command line using the
+The location must be passed on the ``cmake`` command line using the
 argument ``-DCBLOSC_ROOT=...``.
 
 For completeness, you should also examine the ``cmake`` scripts::
@@ -387,32 +389,41 @@ For completeness, you should also examine the ``cmake`` scripts::
     cmake/Modules/FindCBLOSC.cmake
 
 to see how the headers and binaries are *actually* found (this is what
-the compiler wants).
+the compiler wants).  ``cmake`` is the best tool for handling the build itself.
 
 But how can we ensure that ``c-blosc`` will be installed?  For that matter,
 how can we ensure that ``cmake`` will be installed?  
 
 This is a dependency problem that is best left to ``conda``.
 Look at the recipes repo (that you are reading now) in the directory
-``ags_example_cpp_lib-0.1.0/``.  Reading the ``meta.yaml`` file you
+``ags_example_cpp_lib-0.1.0/``.  Reading ``meta.yaml`` you
 will see that both ``cmake`` and ``c-blosc`` are listed as build
-dependencies, and that ``c-blosc`` is repeated as a runtime dependency.
+dependencies, and that ``c-blosc`` is repeated as a runtime dependency::
+
+    requirements:
+      build:
+        - cmake
+        - c-blosc
+
+      run:
+        - c-blosc
 
 Fortunately, both ``cmake`` and ``c-blosc`` happen to be packages in
 our binstar channel https://conda.binstar.org/ActivisionGameScience.  Hence
 ``conda`` will know how to install them before attempting a build
 of ``ags_example_cpp_lib``.
 
-We had to write recipes for ``c-blosc`` and ``cmake`` as well.
-Look in their respective directories ``c-blosc-1.5.2/`` and ``cmake-3.1.0/``
-and read ``meta.yaml``.  You will see that ``c-blosc`` also
+We had to write recipes for ``c-blosc`` and ``cmake`` as well 
+(otherwise how could we get the packages in our channel?).
+Look, in their respective recipe directories ``c-blosc-1.5.2/`` and ``cmake-3.1.0/``,
+at ``meta.yaml``.  You will see that ``c-blosc`` also
 uses ``cmake`` to build, but requires no further dependencies.
 ``cmake`` requires no dependencies.  We were able to add them
 as packages to our channel by first building and uploading ``cmake``,
 then building and uploading ``c-blosc``.
 
 Now look at the Linux build script ``build.sh`` in the recipe
-for our toy library ``ags_example_cpp_lib-0.1.0/``.
+directory ``ags_example_cpp_lib-0.1.0/``.
 It contains the exact
 ``cmake`` commands that are described in its README::
 
@@ -427,3 +438,70 @@ It contains the exact
 
 So we see that ``cmake`` handles the build beautifully, and ``conda``
 handles the dependency management with equal finesse.
+
+
+Project 2: a C++ application using our library
+----------------------------------------------
+
+We do the same thing with the repo 
+https://github.com/ActivisionGameScience/ags_example_cpp_app.git, except this
+time without fewer comments.  This is a project that builds two executables:
+``ags_blosc_compress`` and ``ags_blosc_decompress``.  They are command-line
+utilities that perform blosc compression/decompresson.
+
+This project links against the library project ``ags_example_cpp_lib`` that we
+just built.  By transitivity it also links against the ``c-blosc`` binary.
+
+As before, you could clone the repo and build it by hand using ``cmake`` (the README contains instructions).
+
+However, we have written a conda recipe to handle it.  Clone the recipes repo (that you are reading)::
+
+    git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
+    cd ags_conda_recipes
+
+and build the package::
+
+    conda build ags_example_cpp_app-0.1.0
+
+As always, when building packages, make sure that you have run ``source deactivate``
+beforehand so that you are in the root environment.
+
+The new package is now in ``~/miniconda/conda-bld/linux-64/``.  You can copy the
+tarball to your behind-the-firewall conda repository as before (don't forget to run ``conda index``).
+
+Like before, you should read both the ``conda`` recipe and the ``cmake`` scripts to
+understand how this build and dependency management works.
+
+
+Project 3: a python wrapper around our C++ library
+--------------------------------------------------
+
+We do the same thing with the repo 
+https://github.com/ActivisionGameScience/ags_example_py_wrapper.git.
+This is a project that installs a python module, ``ags_py_blosc_wrapper``,
+that wraps the underlying C code in python.  Look at the README
+in the project for details.
+
+Since this is pure python (the binding is done via ``cffi``), no linking
+is necessary.  There is no ``cmake`` code because there is no C/C++.  The
+build is handled by the usual ``setuptools``.
+
+However, we still need the ``ags_example_cpp_lib`` project to be installed
+at runtime.  Again, ``conda`` handles this dependency.  Look at the recipe
+``ags_example_py_wrapper_0.1.0/`` in this repo for details.
+
+As before, you could clone the repo and build it by hand (the README contains instructions).
+
+However, we have written a conda recipe to handle it.  Clone the recipes repo (that you are reading)::
+
+    git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
+    cd ags_conda_recipes
+
+and build the package::
+
+    conda build ags_example_py_wrapper-0.1.0
+
+As always, when building packages, make sure that you have run ``source deactivate``
+beforehand so that you are in the root environment.
+
+The new package can be copied to your behind-the-firewall conda repository like the others.
