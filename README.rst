@@ -547,7 +547,7 @@ and installed the ``conda`` way::
 
     conda install ags_example_py_wrapper
     ipython
-        In[0]: from ags_blosc_wrapper import BloscWrapper
+        In[0]: from ags_py_blosc_wrapper import BloscWrapper
         In[1]: b = BloscWrapper() 
 
         ...
