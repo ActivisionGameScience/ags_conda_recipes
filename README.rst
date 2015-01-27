@@ -6,7 +6,7 @@ use ``conda`` (https://github.com/conda/conda.git) for your
 package (dependency) management.  For other languages you might consider it
 as well.
 
-To justify this, consider current package managers:
+To justify this, consider other package managers:
 
 * python has ``pip`` + ``virtualenv``
 
@@ -19,29 +19,34 @@ many of the best python packages (e.g. ``numpy``) are written in C, and
 System-level package managers like ``apt-get`` and ``yum`` work
 much better with native binaries, but they have serious drawbacks of their own: 
 
-1) need root/admin access to install packages
+1) need admin privileges to install packages (and changes are system-wide)
 
-2) packages are limited to what is available in the distro
-   (and further limited by your grumpy IT department)
+2) limited to what is available on the platform
+   (and allowed by your IT department)
 
-3) your builds will be tightly coupled to specific platforms 
+3) your builds will be tightly coupled to the platform 
 
-4) every OS has its own package manager
+4) every platform has its own package manager
+
+5) how do you manage dependencies within your own codebase?
 
 Point (2) is particularly nasty.  How many of us have been told that our deploy
-environment is RHEL5 with python 2.4 and gcc 4.1?  Or RHEL6 with python 2.6
-and gcc 4.4?  Working on those platforms is like slipping back in time
-(and having your hands tied behind your back).
+environment is RHEL6 with python 2.6 and gcc 4.4 (or, worse, RHEL5)?  
+Your favorite libraries will not be available.
 
 Point (3) is ugly if you need to deploy across many
-environments.  Do you want to maintain separate builds for RHEL5, RHEL6,
-Ubuntu12.04, and Ubuntu14.04?  Maintaining Windows and Mac builds is
-already difficult enough.
+environments.  Maintaining Windows and Mac builds is hard enough.  
+Do you want to distribute separate builds for RHEL5, RHEL6,
+Ubuntu12.04, and Ubuntu14.04 as well?
 
 Point (4) is a problem even for the Linux-only crowd.  Which distro?  
 
-As far as system-level lock-in is concerned, ``pip`` is somewhat
-better.  Thanks to ``virtualenv`` we're not installing packages
+To address point (1) you can use ``docker`` (assuming you are willing
+to limit yourself to a modern Linux).
+You *still* need a package manager, though.
+
+(1) is also somewhat mitigated in ``pip`` thanks to ``virtualenv``.
+At least we're not installing packages
 to our global ``site-packages`` anymore.  Too bad this only works
 for python code.
 
@@ -86,20 +91,6 @@ The examples below build on top of ``Anaconda``, but you don't
 need to buy a license if you don't want to.  After 30 days the ``mkl``,
 ``iopro``, and ``accelerate`` trials will simply expire and stop working.
 If you don't need ``numpy`` then you won't miss it.
-
-
-What about docker?
-------------------
-
-``conda`` and ``docker`` are similar in some ways (both provide
-lightweight isolation of your application environment from the host),
-but the overlap ends there.
-
-``conda`` is a package manager.  It is meant to manage,
-not just third-party packages, but also dependencies within your own codebase.  It also
-works natively in Linux, Windows, and Mac.
-
-We use ``conda`` inside of ``docker`` containers regularly.
 
 
 About this tutorial
