@@ -6,6 +6,7 @@ accelerate=1.6.0=np18py27_p0
 ansible=1.7.2=py27_0
 ant=1.9.4=0
 argcomplete=0.6.7=py27_0
+assertpy=0.6=py27_0
 astroid=1.2.1=py27_0
 astropy=0.4.1=np18py27_0
 atom=0.3.9=py27_0
