@@ -53,15 +53,14 @@ What is conda?
 --------------
 
 ``conda`` keeps the good parts of these package managers
-and jettisons the bad.  It handles native and python libraries,
-but without being locked in at the system level.  No root access is necessary.  
-It also works in Linux, Windows, and Mac.
+and jettisons the bad.  Like ``virtualenv``, ``conda`` avoids the 
+system-level lock-in through "environments".  Unlike ``virtualenv``, it can handle
+native packages as well.  
 
-Like ``virtualenv`` on steroids, ``conda`` achieves this through "environments".
-You can have as many environments as you like.
-
-In short, you can be productive on a spartan
-RHEL5 box within minutes without getting permission from anybody.
+You can have as many environments as you like (e.g. one
+per project).  Root access is not required, and there is no reliance on
+platform-specific containers (like ``docker``) or VMs.  ``conda``
+handles packages *natively* for Windows, Linux, and Mac.
 
 ``conda``'s package repository (analogous to ``pypi``) is called ``binstar``.  
 ``binstar`` allows you to upload your own public and private packages, and
