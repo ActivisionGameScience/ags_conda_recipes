@@ -12,17 +12,16 @@ To justify this, consider other package managers:
 
 * C/C++ has ``apt-get``, ``yum``, ``nuget``, ``homebrew``, etc
 
-``pip`` works fine if you are only dealing with pure python packages.  However,
+``pip`` works well if you are only dealing with pure python packages.  However,
 many of the best python packages (e.g. ``numpy``) are written in C, and
-``pip`` is not a great tool for managing native binaries.
+``pip`` is not a good tool for managing native binaries.
 
 System-level package managers like ``apt-get`` and ``yum`` work
 much better with native binaries, but they have serious drawbacks of their own: 
 
 1) need admin privileges to install packages (and changes are system-wide)
 
-2) limited to what is available on the platform
-   (and allowed by your IT department)
+2) limited to what is available (and allowed!) on the platform
 
 3) your builds will be tightly coupled to the platform 
 
@@ -36,19 +35,18 @@ Your favorite libraries will not be available.
 
 Point (3) is ugly if you need to deploy across many
 environments.  Maintaining Windows and Mac builds is hard enough.  
-Do you want to distribute separate builds for RHEL5, RHEL6,
+Do you want to maintain separate builds for RHEL5, RHEL6,
 Ubuntu12.04, and Ubuntu14.04 as well?
 
 Point (4) is a problem even for the Linux-only crowd.  Which distro?  
 
-To address point (1) you can use ``docker`` (assuming you are willing
-to limit yourself to a modern Linux).
-You *still* need a package manager, though.
+Point (1) is now solved for Linux developers who
+use ``docker`` (Windows and Mac platforms can run the same 
+code in a lightweight VM using ``boot2docker``).  Unfortunately there
+is no similar solution for *native* Windows and Mac projects.
 
-(1) is also somewhat mitigated in ``pip`` thanks to ``virtualenv``.
-At least we're not installing packages
-to our global ``site-packages`` anymore.  Too bad this only works
-for python code.
+The python world solved (1) with the introduction of ``virtualenv``.
+Unfortunately this only works well for pure python code.
 
 
 What is conda?
