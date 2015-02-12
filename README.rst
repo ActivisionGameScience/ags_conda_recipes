@@ -43,7 +43,7 @@ Point (4) is a problem even for the Linux-only crowd.  Which distro?
 Point (1) is now solved for Linux developers who
 use ``docker`` (Windows and Mac platforms can run the same 
 code in a lightweight VM using ``boot2docker``).  Unfortunately there
-is no similar solution for *native* Windows and Mac projects.
+is not a similar solution for *native* Windows and Mac projects.
 
 The python world solved (1) with the introduction of ``virtualenv``.
 Unfortunately this only works well for pure python code.
