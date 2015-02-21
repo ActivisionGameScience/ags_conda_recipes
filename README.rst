@@ -54,13 +54,14 @@ What is conda?
 
 ``conda`` keeps the good parts of these package managers
 and jettisons the bad.  Like ``virtualenv``, ``conda`` avoids the 
-system-wide trap through "environments".  No root access is required.  
+system-wide trap through "environments".  These are local and do not
+require admin access.  You can have as many environments
+as you like.
 Unlike ``virtualenv``, it can handle native packages as well.  
 
-You can have as many environments as you like (e.g. one
-per project).  There is no reliance on
-platform-specific containers (like ``docker``) or VMs.  ``conda``
-handles packages *natively* for Windows, Linux, and Mac.
+``conda`` handles packages *natively* for
+Windows, Linux, and Mac.  In other words, there is no reliance on
+platform-specific containers like ``docker`` or VMs.
 
 ``conda``'s package repository (analogous to ``pypi``) is called ``binstar``.  
 ``binstar`` allows you to upload your own public and private packages, and
@@ -70,8 +71,8 @@ For proprietary packages (that cannot leave your firewall) you can maintain your
 own package repository.  This can be as simple as a directory
 containing tarballs (a "poor-man's ``binstar``").
 
-You can pull from several of these "package channels" simultaneously
-if you have a mixed public/private project.
+You can pull from several repositories simultaneously.  In other words, ``conda``
+supports mixing "package channels".
 
 
 What is Anaconda?
@@ -94,29 +95,28 @@ About this tutorial
 -------------------
 
 This tutorial is an end-to-end example showing how to use ``conda`` in production.
-We use it to manage both public packages and proprietary packages (behind our firewall).
+We use it to manage both public packages (on ``binstar``) and proprietary packages (behind our firewall).
 
-We will demonstrate our own dev environment as a kitchen-sink example.  It is 
+We will use our own dev environment as a kitchen-sink example.  It is 
 a mix of ``Anaconda`` and our own builds of popular software.  Anything not
-pulled from the default channels will be pulled from our public
+pulled from the default channels will be pulled from our 
 channel https://binstar.org/ActivisionGameScience.  
 You are invited to contribute to our environment, but otherwise you can use
 it as an example.
 
-Our packages are built using recipes that are contained in this repo (the repo
-you are reading now).  Although ``Anaconda`` is fully cross-platform, 
+Although ``Anaconda`` is fully cross-platform, 
 our packages are lagging in Windows and Mac support (we are working on it).
+The techniques presented, however, will be nearly identical across all platforms.
 
 It should take about 5 minutes to get going (followed by a 30-minute
 nap while the packages download).
 
-After you see how our environment works, we will describe how we created
-it.  You will do the same when creating your own
-environments.  In particular, we will pick a package at random
+After briefly playing with our environment, we will describe how we created
+it.  In particular, we will pick a package at random
 and show how it was built (using a "recipe") and uploaded to ``binstar``.
 
 Finally, we will describe 3 example projects that we posted on github.  You
-should pretend that these are proprietary projects.  You will learn how to
+should pretend that these are your proprietary projects.  You will learn how to
 build them and publish the packages behind your firewall.
 
 Besides learning how to publish packages behind your firewall, you will
@@ -132,7 +132,7 @@ First steps: install conda
 ==========================
 
 Before starting, find the most spartan machine possible.  Really annoy yourself.
-A Windows or Mac box will work fine for now, but I started with this barebones CentOS5 vagrant box:  
+A Windows or Mac box will work fine for now.  I started with this barebones CentOS5 vagrant box:  
 http://tag1consulting.com/files/centos-5.9-x86-64-minimal.box.
 
 It has no ``git`` and no ``java`` (let alone ``javac``, ``mvn``, or ``ant``).  
@@ -150,7 +150,7 @@ or in Windows::
     Miniconda-3.7.0-Windows_x86_64.exe
 
 Install ``conda`` wherever you like (I chose ``~/miniconda``).
-You can allow the installer to modify your ``.bashrc`` (``PATH`` in Windows) if you want.  
+You can allow the installer to permanently modify your ``PATH`` if you want.
 If so then close and reopen your terminal.  
 If not then you'll always have to enable ``conda`` manually (Linux or Mac)::
 
@@ -170,7 +170,7 @@ it with anything else.  Your real environments will live below ``~/miniconda/env
     instance for it.  You can download the ``Miniconda3`` installer
     and set up a separate root environment in ``/some/other/path/miniconda3``.
 
-Now edit your ``~/.condarc`` file and add both our ActivisionGameScience channel and the default
+Now edit your ``~/.condarc`` file and add our ActivisionGameScience channel and the default
 channels::
 
     channels:
@@ -188,7 +188,7 @@ Now update everything in your root environment and install a couple of utility p
     conda update --all
     conda install jinja2 git conda-build binstar
 
-(in Windows and Mac omit ``git`` because we do not have it packaged there yet).
+(in Windows and Mac please omit ``git`` because we do not have it packaged there yet).
 
 
 Your first environment
@@ -212,17 +212,19 @@ or in Windows::
 
     activate mydev
 
-The new environment contains its own instance of python with ``flask``.  The
+The new environment contains its own instance of python with ``flask``.  In other words, the
 following import should work::
 
     from flask import Flask 
 
-From within an environment it is also easy to install new packages (this installs ``ipython``)::
+It is also easy to install new packages after an environment has been created.  For example,
+to install ``ipython`` from within an activated environment you would use the command::
 
     conda install ipython
 
-If you enjoy your environment then you will want to reproduce it on
-other machines.  You can export your current environment's specs (versions and all) to a text file::
+This example is trivial, but some environments can have hundreds of packages.
+You will want to reproduce them on other machines without retracing your steps.
+You can export your current environment's specs (versions and all) to a text file::
 
     conda list --export > myenv.export
 
@@ -250,7 +252,7 @@ You are ready to try out our ActivisionGameScience dev environment.  Even if you
 don't like it, it should give you an idea of the possibilities.
 
     Unfortunately, currently our environment only supports Linux.  However, the concepts
-    described in the rest of the tutorial will work on Windows and Mac as well with
+    described in the rest of the tutorial will work on Windows and Mac with
     almost no change
 
 Clone the current repository (that you are reading)::
