@@ -137,15 +137,19 @@ and the system python is 2.4.  You can forget your favorite python libraries.
 It doesn't have ``autotools`` (good luck building anything).
 
 Let's turn this machine into a joy.  Download the ``Miniconda`` installer 
-from http://conda.pydata.org/miniconda.html and run it.  In Linux or Mac::
+from http://conda.pydata.org/miniconda.html and run it.  In Linux:: 
 
     sh Miniconda-3.7.0-Linux_x86_64.sh
+
+Mac is similar::
+
+    sh Miniconda-3.7.0-MacOSX.sh
 
 or in Windows::
 
     Miniconda-3.7.0-Windows_x86_64.exe
 
-Install it wherever you like (I chose ``~/miniconda``).
+Install it wherever you like (I chose ``~/miniconda`` (Linux and Mac) and ``C:\miniconda`` (Windows)).
 You can allow the installer to permanently modify your ``PATH`` if you want.
 If so then close and reopen your terminal.  
 If not then you'll always have to enable ``conda`` manually.  In Linux or Mac::
@@ -160,7 +164,7 @@ Either way, typing ``which python`` should show ``~/miniconda/bin/python`` (in W
 ``where python`` should show ``C:\miniconda\python.exe``).  This is your "root" environment.
 
 Only conda-specific packages are allowed in the root environment.  Don't pollute
-it with anything else.  Your real environments will live below ``~/miniconda/envs``.
+it with anything else.  Your real environments will live below the ``envs/`` subdirectory.
 
     Pro tip: if you want to use python 3 then I recommend having a separate ``conda``
     instance for it.  You can download the ``Miniconda3`` installer
@@ -199,7 +203,7 @@ Instead, let's create a minimal environment containing only python and ``flask``
 
     conda create -n myenv python flask
 
-The new environment will be in the directory ``~/miniconda/envs/mydev/``.  You
+The new environment will be in the subdirectory ``envs/mydev/``.  You
 can "activate" it like this (Linux or Mac)::
 
     source activate mydev
@@ -269,7 +273,7 @@ Go for a walk to let it download (takes about 30 minutes).
 Future installs will be almost instantaneous because ``conda`` keeps
 a cache of downloaded tarballs.
 
-After your walk, check out the directory ``~/miniconda/envs/agsdev/``.  There's your new
+After your walk, check out the directory ``envs/agsdev/``.  There's your new
 environment.
 
 You can "activate" it like this::
