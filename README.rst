@@ -306,9 +306,9 @@ the following files::
     build.sh
     bld.bat
 
-You should look at the library version 
-in ``meta.yaml`` and rename the directory
-appropriately (i.e. ``tweepy/`` becomes ``tweepy-2.3/``).
+You should rename the directory so that it reflects the
+version of the library that it builds (i.e. ``tweepy/`` becomes ``tweepy-2.3/``)
+You can find the version by looking in the ``meta.yaml`` file.
 This is because build recipes might need to vary 
 from version to version.
 
