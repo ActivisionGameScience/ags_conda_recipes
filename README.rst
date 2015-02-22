@@ -107,7 +107,6 @@ it as an example.
 Although ``Anaconda`` is fully cross-platform, 
 our packages are lagging in Windows and Mac support (we are working on it).
 The techniques presented, however, will be nearly identical across all platforms.
-
 It should take about 5 minutes to get going (followed by a 30-minute
 nap while the packages download).
 
@@ -217,14 +216,14 @@ following import should work::
 
     from flask import Flask 
 
-It is also easy to install new packages after an environment has been created.  For example,
+It is easy to install new packages after an environment has been created.  For example,
 to install ``ipython`` from within an activated environment you would use the command::
 
     conda install ipython
 
 This example is trivial, but some environments can have hundreds of packages.
-You will want to reproduce them on other machines without retracing your steps.
-You can export your current environment's specs (versions and all) to a text file::
+You will want to reproduce your environments on other machines without retracing your steps.
+You can export the current environment's specs (including versions) to a text file::
 
     conda list --export > myenv.export
 
