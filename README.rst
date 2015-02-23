@@ -141,15 +141,15 @@ from http://conda.pydata.org/miniconda.html and run it.  In Linux::
 
     sh Miniconda-3.7.0-Linux_x86_64.sh
 
-Mac is similar::
+Mac is nearly identical::
 
-    sh Miniconda-3.7.0-MacOSX.sh
+    sh Miniconda-3.7.0-MacOSX_x86_64.sh
 
 or in Windows::
 
     Miniconda-3.7.0-Windows_x86_64.exe
 
-Install it wherever you like (I chose ``~/miniconda`` (Linux and Mac) and ``C:\miniconda`` (Windows)).
+Install it wherever you like (I chose ``~/miniconda`` for Linux and Mac and ``C:\miniconda`` for Windows).
 You can allow the installer to permanently modify your ``PATH`` if you want.
 If so then close and reopen your terminal.  
 If not then you'll always have to enable ``conda`` manually.  In Linux or Mac::
@@ -160,8 +160,9 @@ or in Windows::
 
     set PATH=C:\miniconda;%PATH% 
 
-Either way, typing ``which python`` should show ``~/miniconda/bin/python`` (in Windows
-``where python`` should show ``C:\miniconda\python.exe``).  This is your "root" environment.
+Either way, in Linux or Mac typing ``which python`` should show ``~/miniconda/bin/python`` 
+(in Windows ``where python`` should show ``C:\miniconda\python.exe``).  
+This is your "root" environment.
 
 Only conda-specific packages are allowed in the root environment.  Don't pollute
 it with anything else.  Your real environments will live below the ``envs/`` subdirectory.
@@ -170,7 +171,7 @@ it with anything else.  Your real environments will live below the ``envs/`` sub
     instance for it.  You can download the ``Miniconda3`` installer
     and set up a separate root environment in ``/some/other/path/miniconda3``.
 
-Now edit your ``~/.condarc`` file and add our ActivisionGameScience channel and the default
+Now edit your ``~/.condarc`` file and add our channel and the default
 channels::
 
     channels:
@@ -179,7 +180,7 @@ channels::
 
 (in Windows your ``.condarc`` file lives in your home directory).
 
-Remember that indents are 2 spaces in YAML (``conda`` will complain otherwise).  Since
+Remember that in YAML indents are 2 spaces (``conda`` will complain otherwise).  Since
 our ActivisionGameScience channel is listed first, packages will be pulled from
 there preferentially.
 
@@ -212,7 +213,7 @@ or in Windows::
 
     activate mydev
 
-The new environment contains its own instance of python and ``flask``.  The
+The new environment contains its own instance of python and ``flask``, i.e. the
 following import should work::
 
     from flask import Flask 
@@ -222,9 +223,9 @@ to install ``ipython`` from within an activated environment you would use the co
 
     conda install ipython
 
-This environment is trivial, but some environments can have hundreds of packages.
-We need a way to reproduce them exactly.
-You can export the current environment's specs (version-pinned) to a text file::
+Some environments can have hundreds of packages, so we
+need a way to reproduce them exactly.
+You can export the current environment to a text file::
 
     conda list --export > myenv.export
 
@@ -340,7 +341,8 @@ You can build ``tweepy-2.3/`` with the following command (from its parent direct
 
     conda build tweepy-2.3 
 
-Assuming that everything built correctly there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``.
+Assuming that everything built correctly there will now be a tarball in ``~/miniconda/conda-bld/linux-64/``
+(or in similar directories for Mac and Windows).
 
     Pro tip: for packages that compile C/C++ code (including ``cython``), you should always build 
     with the oldest compiler possible (at least for gcc).  I use a RHEL5 box to
@@ -383,7 +385,7 @@ Look at the repo https://github.com/ActivisionGameScience/ags_example_cpp_lib.gi
 is a dumb C++ wrapper around the popular ``c-blosc`` compression library.  You could
 clone that repo and build it by hand using ``cmake`` (the README contains instructions).
 
-However, we have written a conda recipe to handle it.  Clone this repo (that you are reading)::
+However, we have written a conda recipe to handle it.  Clone the current repo (that you are reading)::
 
     git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
     cd ags_conda_recipes
@@ -395,11 +397,19 @@ and build the recipe::
 As always, when building packages, make sure that you have run ``source deactivate``
 beforehand so that you are in the root environment.
 
-The new package is now in ``~/miniconda/conda-bld/linux-64/``.
+What just happened?  This recipe created a sandbox environment, downloaded all
+dependencies (``c-blosc`` and ``cmake``), cloned ``ags_example_cpp_lib``
+from github, ran ``cmake``, ran the C++ compiler, and then ran the installer.  Finally, it 
+created a tarball from the installed files.
 
-However, we do *not* want to upload this to ``binstar``.  Recall that we
-are pretending that this is a proprietary library.  We want
-to publish the package to our own repository behind the firewall.
+The new package is now in ``~/miniconda/conda-bld/linux-64/``.  Check out the README in
+the https://github.com/ActivisionGameScience/ags_example_cpp_lib.git to see what files
+are included in the package.
+
+Since we are pretending that this is your proprietary package, we do *not*
+want to upload this to ``binstar``.  We want
+to publish the package to your own repository behind the firewall.
+Let's see how to do this.
 
 
 Behind-the-firewall conda repository
@@ -445,22 +455,22 @@ repo https://github.com/ActivisionGameScience/ags_example_cpp_lib.git.
 There you will find details describing how to build and install the library manually
 using ``cmake``.  The most important thing to notice is that ``cmake``
 needs ``c-blosc`` to be already installed.
-The location must be passed on the ``cmake`` command line using the
+The location is passed on the ``cmake`` command line using the
 argument ``-DCBLOSC_ROOT=...``.
 
-For completeness, you should have a look at the ``cmake`` scripts::
-
-    CMakeLists.txt
-    cmake/Modules/FindCBLOSC.cmake
-
-to see how the headers and binaries are *actually* found (this is what
-the compiler wants).  ``cmake`` is the best tool for handling the build itself.
+    For completeness, you should have a look at the ``cmake`` scripts::
+    
+        CMakeLists.txt
+        cmake/Modules/FindCBLOSC.cmake
+    
+    to see how the headers and binaries are *actually* found (this is what
+    the compiler wants).  ``cmake`` is the best tool for handling the build itself.
 
 But how can we ensure that ``c-blosc`` will be installed?  For that matter,
 how can we ensure that ``cmake`` will be installed?  
 
 This is a dependency problem that is best left to ``conda``.
-Look at this repo (that you are reading now) in the directory
+Look at the current repo (that you are reading now) in the directory
 ``ags_example_cpp_lib-0.1.0/``.  In ``meta.yaml`` you
 will see that both ``cmake`` and ``c-blosc`` are listed as build
 dependencies, and that ``c-blosc`` is repeated as a runtime dependency::
