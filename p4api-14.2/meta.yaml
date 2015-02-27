@@ -1,0 +1,15 @@
+package:
+  name: p4api
+  version: 14.2 
+
+source:
+  fn: p4api.tgz
+  url: http://filehost.perforce.com/perforce/r14.2/bin.linux26x86_64/p4api.tgz
+
+build:
+  number: 0
+
+about:
+  home: http://www.perforce.com
+  license:  Perforce Proprietary
+  summary:  C bindings to Perforce

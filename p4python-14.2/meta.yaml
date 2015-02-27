@@ -1,0 +1,22 @@
+package:
+  name: p4python
+  version: 14.2 
+
+source:
+  fn: p4python.tgz
+  url: http://filehost.perforce.com/perforce/r14.2/bin.tools/p4python.tgz
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - p4api
+  run:
+    - python
+
+about:
+  home: http://www.perforce.com
+  license:  Perforce Proprietary
+  summary:  Python bindings to Perforce
