@@ -1,11 +1,11 @@
 package:
   name: assertpy
-  version: !!str 0.6
+  version: !!str 0.7
 
 source:
-  fn: assertpy-0.6.tar.gz
-  url: https://pypi.python.org/packages/source/a/assertpy/assertpy-0.6.tar.gz
-  md5: f1f837f325e31d04df56c0e2937e2789
+  fn: assertpy-0.7.tar.gz
+  url: https://pypi.python.org/packages/source/a/assertpy/assertpy-0.7.tar.gz
+  md5: 63ad901b4475462b516cc7cf3e4644a8
 #  patches:
    # List any patch files here
    # - fix.patch
