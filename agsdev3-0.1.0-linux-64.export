@@ -183,7 +183,7 @@ scikit-image=0.11.2=np19py34_0
 scikit-learn=0.15.2=np19py34_p0
 scipy=0.15.1=np19py34_p0
 seaborn=0.5.1=py34_0
-setuptools=15.1=py34_1
+setuptools=15.2=py34_0
 simplejson=3.6.5=py34_0
 sip=4.16.5=py34_0
 six=1.9.0=py34_0
@@ -214,6 +214,7 @@ unixodbc=2.3.1=1
 update_checker=0.10=py34_0
 urllib3=1.10.3=py34_0
 util-linux=2.21=0
+vim=7.4.443=py34_0
 werkzeug=0.10.4=py34_0
 xlrd=0.9.3=py34_0
 xlsxwriter=0.6.7=py34_0
