@@ -1,0 +1,75 @@
+package:
+  name: gensim
+  version: !!str 0.11.1
+
+source:
+  fn: gensim-0.11.1-1.tar.gz
+  url: https://pypi.python.org/packages/source/g/gensim/gensim-0.11.1-1.tar.gz
+  md5: 375c19503d92868b22b150062558cf31
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - gensim = gensim:main
+    #
+    # Would create an entry point called gensim that calls gensim.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy 1.9.2
+    - scipy >=0.7.0
+    - six >=1.2.0
+    - smart_open >=1.2.1
+
+  run:
+    - python
+    - numpy 1.9.2
+    - scipy >=0.7.0
+    - six >=1.2.0
+    - smart_open >=1.2.1
+
+test:
+  # Python imports
+  imports:
+    - gensim
+    - gensim.corpora
+    - gensim.models
+    - gensim.models.wrappers
+    - gensim.parsing
+    - gensim.scripts
+    - gensim.similarities
+    - gensim.test
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://radimrehurek.com/gensim
+  license: GNU Library or Lesser General Public License (LGPL)
+  summary: 'Python framework for fast Vector Space Modelling'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

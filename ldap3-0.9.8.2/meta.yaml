@@ -1,0 +1,76 @@
+package:
+  name: ldap3
+  version: "0.9.8.2"
+
+source:
+  fn: ldap3-0.9.8.2.tar.gz
+  url: https://pypi.python.org/packages/source/l/ldap3/ldap3-0.9.8.2.tar.gz
+  md5: 044c7fb0509af4feb700de172ec72ca8
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - ldap3 = ldap3:main
+    #
+    # Would create an entry point called ldap3 that calls ldap3.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - pyasn1 >=0.1.7
+
+  run:
+    - python
+    - pyasn1 >=0.1.7
+
+test:
+  # Python imports
+  imports:
+    - ldap3
+    - ldap3.abstract
+    - ldap3.compat
+    - ldap3.core
+    - ldap3.extend
+    - ldap3.extend.microsoft
+    - ldap3.extend.novell
+    - ldap3.extend.standard
+    - ldap3.operation
+    - ldap3.protocol
+    - ldap3.protocol.formatters
+    - ldap3.protocol.sasl
+    - ldap3.protocol.schemas
+    - ldap3.strategy
+    - ldap3.utils
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/cannatag/ldap3
+  license: GNU Lesser General Public License v3 (LGPLv3)
+  summary: 'A strictly RFC 4511 conforming LDAP V3 pure Python client. Same codebase for Python 2, Python3, PyPy and PyPy 3'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
