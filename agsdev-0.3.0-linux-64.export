@@ -4,7 +4,6 @@
 _license=1.1=py27_0
 abstract-rendering=0.5.1=np19py27_0
 accelerate=1.11.0=np19py27_p0
-ansible=1.7.2=py27_0
 ant=1.9.4=0
 argcomplete=0.8.4=py27_0
 astroid=1.2.1=py27_0
