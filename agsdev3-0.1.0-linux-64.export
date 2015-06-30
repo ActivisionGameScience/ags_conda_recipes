@@ -170,7 +170,6 @@ pytz=2015.2=py34_0
 pyyaml=3.11=py34_0
 pyzmq=14.5.0=py34_0
 qt=4.8.6=1
-r-project=3.1.3=0
 readline=6.2=2
 redis=2.6.9=0
 redis-py=2.10.3=py34_0
