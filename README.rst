@@ -60,13 +60,17 @@ Unlike ``virtualenv``, it can handle native packages as well.
 There is no reliance on platform-specific containers like ``docker`` or VMs.
 The same system works *natively* on Linux, Windows, and Mac.
 
-``conda``'s package repository (analogous to ``pypi``) is called ``binstar``.  
-``binstar`` allows you to upload your own public and private packages, and
+``conda``'s package repository (analogous to ``PyPI``) is called ``anaconda.org``
+(formerly ``binstar``).  
+``anaconda.org`` allows you to upload your own public and private packages, and
 group yourselves into *organizations* (similar to how github works).
 
 For proprietary packages (that cannot leave your firewall) you can maintain your
 own package repository.  This can be as simple as a directory
-containing tarballs (a "poor-man's ``binstar``").
+containing tarballs.  The enterprisey solution is to purchase ``Anaconda Server`` from
+Continuum Analytics (http://www.continuum.io).  We have a simple
+"poor-man's Anaconda Server" project https://github.com/ActivisionGameScience/poboys_conda_package_server.git
+if your needs are simple.
 
 You can pull from several repositories simultaneously.  In other words, ``conda``
 supports mixing "package channels".
