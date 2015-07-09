@@ -68,12 +68,11 @@ group yourselves into *organizations* (similar to how github works).
 For proprietary packages (that cannot leave your firewall) you can maintain your
 own package repository.  This can be as simple as a directory
 containing tarballs.  The enterprisey solution is to purchase ``Anaconda Server`` from
-Continuum Analytics (http://www.continuum.io).  We have a simple
-"poor-man's Anaconda Server" project https://github.com/ActivisionGameScience/poboys_conda_package_server.git
-if your needs are simple.
+Continuum Analytics (http://www.continuum.io).  If your needs are simple then we wrote a silly
+"poor-man's Anaconda Server" https://github.com/ActivisionGameScience/poboys_conda_package_server.git.
 
-You can pull from several repositories simultaneously.  In other words, ``conda``
-supports mixing "package channels".
+Note that you can pull from several repositories simultaneously.  ``conda`` refers to
+repositories as "package channels".
 
 
 What is Anaconda?
@@ -82,9 +81,9 @@ What is Anaconda?
 ``Anaconda`` is a specific set of packages being
 maintained by Continuum Analytics (http://www.continuum.io).  Most of
 these packages are free, but some (like ``mkl``) require a license.
-You can use ``Anaconda`` or not.  The price (a few hundred dollars per
-year per developer) is well-worth the saved time in our experience.
-We are not associated with Continuum.
+You can use ``Anaconda`` or not.  The price for the nonfree components 
+(a few hundred dollars per year per developer) is well-worth the saved 
+time in our experience.  We are not associated with Continuum.
 
 The examples below build on top of ``Anaconda``, but you don't
 need to buy a license if you don't want to.  After 30 days the ``mkl``,
@@ -96,24 +95,24 @@ About this tutorial
 -------------------
 
 This tutorial is an end-to-end example showing how to use ``conda`` in production.
-We use it to manage both public packages (on ``binstar``) and proprietary packages (behind our firewall).
+We use it to manage both public packages (on ``anaconda.org``) and proprietary packages (behind our firewall).
 
 We will use our own dev environment as a kitchen-sink example.  It is 
-a mix of ``Anaconda`` and our own builds of popular software.  Anything not
+a mix of ``Anaconda`` packages and our own builds of popular software.  Anything not
 pulled from the default channels will be pulled from our 
-channel https://binstar.org/ActivisionGameScience.  
+channel https://anaconda.org/ActivisionGameScience.  
 You are invited to contribute to our environment, but otherwise you can use
 it as an example.
 
 Although ``Anaconda`` is fully cross-platform, 
-our packages are lagging in Windows and Mac support (we are working on it).
+our packages are lagging in Windows and Mac support (we are slowly working on it).
 The techniques presented, however, will be nearly identical across all platforms.
 It should take about 5 minutes to get going (followed by a 30-minute
 nap while the packages download).
 
 After briefly playing with our environment, we will describe how we created
 it.  In particular, we will pick a package at random
-and show how it was built (using a "recipe") and uploaded to ``binstar``.
+and show how it was built (using a "recipe") and uploaded to ``anaconda.org``.
 
 Finally, we will describe 3 example projects that we posted on github.  You
 should pretend that these are your proprietary projects.  You will learn how to
@@ -121,7 +120,7 @@ build them and publish the packages behind your firewall.
 
 Besides learning how to publish packages behind your firewall, you will
 see that ``conda`` handles in-house dependencies in the same way that
-it handles third-party dependencies.
+it handles third-party dependencies (they can be mixed/matched).
 
 As a bonus, we will demonsrate how to use ``cmake`` to build C++ projects,
 and how to use ``cffi`` to create python wrappers around 
@@ -153,6 +152,9 @@ or in Windows::
 
     Miniconda-3.7.0-Windows_x86_64.exe
 
+Feel free to use the python 3 installer (``Miniconda3-*``) instead if you want.  Both ``Anaconda``
+and our dev environment are up-to-date (we use python 3 more often, in fact).
+
 Install it wherever you like (I chose ``~/miniconda`` for Linux and Mac and ``C:\miniconda`` for Windows).
 You can allow the installer to permanently modify your ``PATH`` if you want.
 If so then close and reopen your terminal.  
@@ -171,15 +173,11 @@ This is your "root" environment.
 Only conda-specific packages are allowed in the root environment.  Don't pollute
 it with anything else.  Your real environments will live below the ``envs/`` subdirectory.
 
-    Pro tip: if you want to use python 3 then I recommend having a separate ``conda``
-    instance for it.  You can download the ``Miniconda3`` installer
-    and set up a separate root environment in ``/some/other/path/miniconda3``.
-
 Now edit your ``~/.condarc`` file and add our channel and the default
 channels::
 
     channels:
-      - https://conda.binstar.org/ActivisionGameScience
+      - https://conda.anaconda.org/ActivisionGameScience
       - defaults
 
 (in Windows your ``.condarc`` file lives in your home directory).
@@ -263,16 +261,16 @@ Clone the current repository (that you are reading)::
 
     git clone https://github.com/ActivisionGameScience/ags_conda_recipes.git
 
-or, alternatively, just grab the file::
+or, alternatively, just grab our latest exported file::
 
-    ags_dev-0.1.0-linux-64.export
+    ags_dev-<latest version>-linux-64.export
 
 This contains an exact specification of packages that we like.  Some of
 them come from ``Anaconda``, but many of them come from our own channel.
 Now you can create  your own ``agsdev`` environment (name it whatever
 you want)::
 
-    conda create -n agsdev --file agsdev-0.1.0-linux-64.export
+    conda create -n agsdev --file agsdev-<latest version>-linux-64.export
 
 Go for a walk to let it download (takes about 30 minutes).
 Future installs will be almost instantaneous because ``conda`` keeps
@@ -290,8 +288,8 @@ there that I complained about (``git``, ``cmake``, ``vim``, ``tmux``, ``zsh``,
 ``java``, ``javac``, ``ant``, ``mvn``, and much more!).
 
 
-How did we build and upload our packages to binstar?
-====================================================
+How did we build and upload our packages to anaconda.org?
+=========================================================
 
 Now that you have our environment loaded and running, you
 might want to know how we built it.
@@ -299,7 +297,7 @@ might want to know how we built it.
 In order to build a package for ``conda`` you'll need to write
 a "recipe".  Fortunately, some recipes are so trivial that they can be
 auto-generated by ``conda`` (this is true for most packages in
-``pypi``).  For example, to generate a recipe for the library ``tweepy`` 
+``PyPI``).  For example, to generate a recipe for the library ``tweepy`` 
 we use the following command::
 
     conda skeleton pypi tweepy
@@ -324,8 +322,8 @@ You can find the version in the ``meta.yaml`` file.
     i.e. ``gensim/`` becomes ``gensim-0.10.1-np18/``.
 
 We are not so lucky with other packages (e.g. ``jdk`` and ``vim``).
-Their recipes must be painstakingly written and often require 
-extensive knowledge of various compilers (e.g. ``gcc``, ``clang``, ``cl``),
+Their recipes must be handwritten and often require 
+considerable knowledge of various compilers (e.g. ``gcc``, ``clang``, ``cl``),
 options, environment variables, and build
 tools (e.g. ``cmake``, ``make``, ``nmake``, Visual Studio projects, etc).
 
@@ -341,7 +339,7 @@ Build and upload
 *Make sure that you are in the root environment for this step*.  Do a ``source deactivate`` to
 make sure.
 
-You can build ``tweepy-2.3/`` with the following command (from its parent directory)::
+You can build ``tweepy-2.3/`` with the following command (from one directory above)::
 
     conda build tweepy-2.3 
 
@@ -356,7 +354,7 @@ Assuming that everything built correctly there will now be a tarball in ``~/mini
     Unfortunately, MSVC binaries are not always forward ABI compatible, so the same advice may
     not apply there
 
-Since our organization on ``binstar`` is called ``ActivisionGameScience`` I uploaded
+Since our organization on ``anaconda.org`` is called ``ActivisionGameScience`` I uploaded
 the package with the following command::
 
     binstar upload -u ActivisionGameScience ~/miniconda/conda-bld/linux-64/tweepy-2.3-py27.tar.bz2
@@ -402,7 +400,7 @@ As always, when building packages, make sure that you have run ``source deactiva
 beforehand so that you are in the root environment.
 
 What just happened?  This recipe created a sandbox environment, downloaded all
-dependencies (``c-blosc`` and ``cmake``), cloned ``ags_example_cpp_lib``
+dependencies (``c-blosc`` and ``cmake`` are in our ActivisionGameScience channel), cloned ``ags_example_cpp_lib``
 from github, ran ``cmake``, ran the C++ compiler, and then ran the installer.  Finally, it 
 created a tarball from the installed files.
 
@@ -411,7 +409,7 @@ the https://github.com/ActivisionGameScience/ags_example_cpp_lib.git to see what
 are included in the package.
 
 Since we are pretending that this is your proprietary package, we do *not*
-want to upload this to ``binstar``.  We want
+want to upload this to ``anaconda.org``.  We want
 to publish the package to your own repository behind the firewall.
 Let's see how to do this.
 
@@ -420,6 +418,10 @@ Behind-the-firewall conda repository
 ------------------------------------
 
 We'll make the simplest conda repository possible: a directory of tarballs.  
+If you need something enterprisey then consider purchasing ``Anaconda Server``.
+If you need something in-between then look at our silly project
+https://github.com/ActivisionGameScience/poboys_conda_package_server.git.
+
 First create some directory to hold your packages::
 
     mkdir /some/path/pkgs_inhouse
@@ -428,7 +430,7 @@ Then add it to your ``.condarc``::
 
     channels:
       - file:///some/path/pkgs_inhouse
-      - https://conda.binstar.org/ActivisionGameScience
+      - https://conda.anaconda.org/ActivisionGameScience
       - defaults
 
 Next add a platform subdirectory and copy your new package into it::
@@ -488,14 +490,14 @@ dependencies, and that ``c-blosc`` is repeated as a runtime dependency::
         - c-blosc
 
 Fortunately, both ``cmake`` and ``c-blosc`` happen to be packages in
-our binstar channel https://conda.binstar.org/ActivisionGameScience.  Hence
+our ``anaconda.org`` channel https://conda.anaconda.org/ActivisionGameScience.  Hence
 ``conda`` will know how to install them before attempting a build
 of ``ags_example_cpp_lib``.
 
     Aside: we wrote recipes for ``c-blosc`` and ``cmake`` as well.
     Look in their respective recipe directories ``c-blosc-1.5.2/`` and ``cmake-3.1.0/``
     at ``meta.yaml``.  You will see that ``c-blosc`` also
-    uses ``cmake`` to build (a wise choice), but requires no further dependencies.
+    uses ``cmake`` to build, but requires no further dependencies.
     ``cmake`` requires no dependencies.  We were able to add these packages
     to our channel by first building and uploading ``cmake``,
     then building and uploading ``c-blosc``.
