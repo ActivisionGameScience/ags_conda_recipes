@@ -1,0 +1,19 @@
+package:
+  name: libsvm
+  version: 3.20
+
+source:
+  git_url: https://github.com/cjlin1/libsvm.git 
+  git_tag: v320
+
+requirements:
+  build:
+    - automake
+    - libtool
+    - pkg-config
+
+  run:
+
+about:
+  home: https://www.csie.ntu.edu.tw/~cjlin/libsvm/
+  license:  BSD
