@@ -21,7 +21,7 @@ much better with native binaries, but they have serious drawbacks of their own:
 
 1) need admin privileges to install packages (and changes are system-wide)
 
-2) limited to what is available (and allowed!) on the platform
+2) limited to packages that are available (and allowed by your IT department)
 
 3) your builds will be tightly coupled to the platform 
 
@@ -40,12 +40,11 @@ Ubuntu12.04, and Ubuntu14.04 as well?
 
 Point (4) is a problem even for the Linux-only crowd.  Which distro?  
 
-Point (1) is now solved for Linux developers who
-use ``docker`` (Windows and Mac developers can run the same 
-code in a lightweight VM using ``boot2docker``).  Unfortunately there
-is not a similar solution for *native* Windows and Mac projects.
+Point (1) is at least no longer a problem for Linux developers who
+use ``docker``.  Unfortunately there
+is not a similar solution for Windows and Mac projects.
 
-The python world solved (1) with the introduction of ``virtualenv``.
+The python world mitigated (1) with the introduction of ``virtualenv``.
 Unfortunately this only works well for pure python code.
 
 
@@ -71,24 +70,21 @@ containing tarballs.  The enterprisey solution is to purchase ``Anaconda Server`
 Continuum Analytics (http://www.continuum.io).  If your needs are simple then we wrote a silly
 "poor-man's Anaconda Server" https://github.com/ActivisionGameScience/poboys_conda_package_server.git.
 
-Note that you can pull from several repositories simultaneously.  ``conda`` refers to
+Finally, you can pull from several repositories simultaneously.  ``conda`` refers to
 repositories as "package channels".
 
 
 What is Anaconda?
 -----------------
 
-``Anaconda`` is a specific set of packages being
-maintained by Continuum Analytics (http://www.continuum.io).  Most of
-these packages are free, but some (like ``mkl``) require a license.
-You can use ``Anaconda`` or not.  The price for the nonfree components 
-(a few hundred dollars per year per developer) is well-worth the saved 
-time in our experience.  We are not associated with Continuum.
+``Anaconda`` is a specific set of useful packages being
+maintained by Continuum Analytics (http://www.continuum.io).  It is
+free, but there are several add-on packages (``mkl``, ``iopro``, and ``accelerate``) 
+that require a license.
 
-The examples below build on top of ``Anaconda``, but you don't
-need to buy a license if you don't want to.  After 30 days the ``mkl``,
-``iopro``, and ``accelerate`` trials will simply expire and stop working.
-If you don't need these components then you won't miss them.
+The examples below build on top of non-free ``Anaconda``, but you don't
+need to buy a license if you don't want to.  We will show you how to remove ``mkl``,
+``iopro``, and ``accelerate`` if you don't need them.
 
 
 About this tutorial
@@ -105,7 +101,7 @@ You are invited to contribute to our environment, but otherwise you can use
 it as an example.
 
 Although ``Anaconda`` is fully cross-platform, 
-our packages are lagging in Windows and Mac support (we are slowly working on it).
+our channel is lagging in Windows and Mac support (we are slowly working on it).
 The techniques presented, however, will be nearly identical across all platforms.
 It should take about 5 minutes to get going (followed by a 30-minute
 nap while the packages download).
@@ -120,7 +116,7 @@ build them and publish the packages behind your firewall.
 
 Besides learning how to publish packages behind your firewall, you will
 see that ``conda`` handles in-house dependencies in the same way that
-it handles third-party dependencies (they can be mixed/matched).
+it handles third-party dependencies.
 
 As a bonus, we will demonsrate how to use ``cmake`` to build C++ projects,
 and how to use ``cffi`` to create python wrappers around 
@@ -152,7 +148,7 @@ or in Windows::
 
     Miniconda-3.7.0-Windows_x86_64.exe
 
-Feel free to use the python 3 installer (``Miniconda3-*``) instead if you want.  Both ``Anaconda``
+Feel free to use the python 3 installer (``Miniconda3-*``) instead if you have already made the switch.  Both ``Anaconda``
 and our dev environment are up-to-date (we use python 3 more often, in fact).
 
 Install it wherever you like (I chose ``~/miniconda`` for Linux and Mac and ``C:\miniconda`` for Windows).
@@ -170,7 +166,7 @@ Either way, in Linux or Mac typing ``which python`` should show ``~/miniconda/bi
 (in Windows ``where python`` should show ``C:\miniconda\python.exe``).  
 This is your "root" environment.
 
-Only conda-specific packages are allowed in the root environment.  Don't pollute
+Only admin packages are allowed in the root environment.  Don't pollute
 it with anything else.  Your real environments will live below the ``envs/`` subdirectory.
 
 Now edit your ``~/.condarc`` file and add our channel and the default
@@ -189,7 +185,7 @@ there preferentially.
 Now update everything in your root environment and install a couple of utility packages::
 
     conda update --all
-    conda install jinja2 git conda-build binstar
+    conda install jinja2 git conda-build anaconda-client
 
 (in Windows and Mac please omit ``git`` because we do not have it packaged there yet).
 
@@ -263,14 +259,14 @@ Clone the current repository (that you are reading)::
 
 or, alternatively, just grab our latest exported file::
 
-    ags_dev-<latest version>-linux-64.export
+    ags_dev?-<latest version>-linux-64.export
 
 This contains an exact specification of packages that we like.  Some of
 them come from ``Anaconda``, but many of them come from our own channel.
 Now you can create  your own ``agsdev`` environment (name it whatever
 you want)::
 
-    conda create -n agsdev --file agsdev-<latest version>-linux-64.export
+    conda create -n agsdev --file agsdev?-<latest version>-linux-64.export
 
 Go for a walk to let it download (takes about 30 minutes).
 Future installs will be almost instantaneous because ``conda`` keeps
@@ -286,6 +282,18 @@ You can "activate" it like this::
 Go ahead, test some things out!  You'll notice that everything is
 there that I complained about (``git``, ``cmake``, ``vim``, ``tmux``, ``zsh``,
 ``java``, ``javac``, ``ant``, ``mvn``, and much more!).
+
+
+Remove licensed components if you don't need them
+-------------------------------------------------
+
+If you don't want to buy licenses then you need to remove the non-free packages::
+
+    conda remove accelerate iopro mkl 
+
+You'll need a BLAS replacement for MKL, though::
+
+    conda install openblas
 
 
 How did we build and upload our packages to anaconda.org?
@@ -357,7 +365,7 @@ Assuming that everything built correctly there will now be a tarball in ``~/mini
 Since our organization on ``anaconda.org`` is called ``ActivisionGameScience`` I uploaded
 the package with the following command::
 
-    binstar upload -u ActivisionGameScience ~/miniconda/conda-bld/linux-64/tweepy-2.3-py27.tar.bz2
+    anaconda upload -u ActivisionGameScience ~/miniconda/conda-bld/linux-64/tweepy-2.3-py27.tar.bz2
 
 Obviously I needed to input my personal credentials (and be a member of the ActivisionGameScience
 organization).
