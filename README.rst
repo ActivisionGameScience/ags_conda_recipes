@@ -289,7 +289,7 @@ Remove licensed components if you don't need them
 
 If you don't want to buy licenses then you need to remove the non-free packages::
 
-    conda remove accelerate iopro mkl mkl-rt mkl-service mklfft numbapro 
+    conda remove accelerate iopro mkl mkl-rt mkl-service mklfft numbapro cudatoolkit
 
 You'll need a BLAS replacement for MKL, though::
 
