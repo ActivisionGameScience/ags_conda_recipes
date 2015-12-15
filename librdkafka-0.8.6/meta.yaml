@@ -1,0 +1,19 @@
+package:
+  name: librdkafka
+  version: 0.8.6
+
+source:
+  fn: 0.8.6.tar.gz
+  url: https://github.com/edenhill/librdkafka/archive/0.8.6.tar.gz
+
+build:
+  number: 0
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: https://github.com/edenhill/librdkafka
+  license:  BSD

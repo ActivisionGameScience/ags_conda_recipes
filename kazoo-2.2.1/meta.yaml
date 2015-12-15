@@ -1,0 +1,67 @@
+package:
+  name: kazoo
+  version: "2.2.1"
+
+source:
+  fn: kazoo-2.2.1.tar.gz
+  url: https://pypi.python.org/packages/source/k/kazoo/kazoo-2.2.1.tar.gz
+  md5: 93e7087abf992325d34bd014c189a8f1
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - kazoo = kazoo:main
+    #
+    # Would create an entry point called kazoo that calls kazoo.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - six
+
+  run:
+    - python
+    - six
+
+test:
+  # Python imports
+  imports:
+    - kazoo
+    - kazoo.handlers
+    - kazoo.protocol
+    - kazoo.recipe
+    - kazoo.testing
+    - kazoo.tests
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://kazoo.readthedocs.org
+  license: Apache Software License
+  summary: 'Higher Level Zookeeper Client'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
