@@ -1,0 +1,26 @@
+package:
+  name: rocksdb
+  version: 4.1
+
+source:
+  fn: v4.1.tar.gz
+  url: https://github.com/facebook/rocksdb/archive/v4.1.tar.gz
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+    - snappy
+    - zlib
+    - bz2file
+
+  run:
+    - snappy
+    - zlib
+    - bz2file
+
+about:
+  home: https://github.com/facebook/rocksdb
+  license:  BSD
