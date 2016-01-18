@@ -160,7 +160,7 @@ If not then you'll always have to enable ``conda`` manually.  In Linux or Mac::
 
 or in Windows::
 
-    set PATH=C:\miniconda;%PATH% 
+    set PATH=C:\miniconda;C:\miniconda\Scripts;%PATH% 
 
 Either way, in Linux or Mac typing ``which python`` should show ``~/miniconda/bin/python`` 
 (in Windows ``where python`` should show ``C:\miniconda\python.exe``).  
