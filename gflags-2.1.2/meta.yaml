@@ -1,0 +1,20 @@
+package:
+  name: gflags
+  version: 2.1.2
+
+source:
+  fn: v2.1.2.tar.gz
+  url: https://github.com/gflags/gflags/archive/v2.1.2.tar.gz
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+
+  run:
+
+about:
+  home: https://github.com/gflags/gflags
+  license:  BSD
