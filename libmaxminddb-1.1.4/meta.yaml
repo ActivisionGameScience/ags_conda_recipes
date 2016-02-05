@@ -1,0 +1,22 @@
+package:
+  name: libmaxminddb
+  version: 1.1.4
+
+source:
+  url: https://github.com/maxmind/libmaxminddb.git
+  git_rev: 1.1.4
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - autoconf
+    - automake
+    - libtool
+
+  run:
+
+about:
+  home: http://github.com/maxmind/libmaxminddb
+  license:  Apache 2.0
