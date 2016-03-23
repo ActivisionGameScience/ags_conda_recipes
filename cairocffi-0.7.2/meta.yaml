@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: cairocffi
+  version: "0.7.2"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: cairocffi-0.7.2.tar.gz
+  url: https://pypi.python.org/packages/source/c/cairocffi/cairocffi-0.7.2.tar.gz
+  md5: b7b6a5908f4180deee84f07bcc14253d
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - cairocffi = cairocffi:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called cairocffi that calls cairocffi.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,19 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - cffi >=1.1.0
+    - cairo
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - cffi >=1.1.0
+    - cairo
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - cairocffi
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +56,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/SimonSapin/cairocffi
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'cffi-based cairo bindings for Python'
 
 # See
 # http://docs.continuum.io/conda/build.html for

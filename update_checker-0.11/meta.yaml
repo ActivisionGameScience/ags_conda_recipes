@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: update_checker
+  version: "0.11"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: update_checker-0.11.tar.gz
+  url: https://pypi.python.org/packages/source/u/update_checker/update_checker-0.11.tar.gz
+  md5: 1daa54bac316be6624d7ee77373144bb
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - update_checker = update_checker:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called update_checker that calls update_checker.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,16 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - requests >=2.3.0
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - requests >=2.3.0
 
-test:
+# test:
   # Python imports
-  imports:
-      - rocksdb
+  # imports:
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +53,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/bboe/update_checker
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'A python module that will check for package updates.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

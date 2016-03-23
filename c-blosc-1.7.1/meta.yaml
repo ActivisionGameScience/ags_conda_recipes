@@ -1,0 +1,21 @@
+package:
+  name: c-blosc
+  version: 1.7.1
+
+source:
+  fn: v1.7.1.tar.gz
+  url: https://github.com/Blosc/c-blosc/archive/v1.7.1.tar.gz 
+  md5: c8d4d2cc64ca2fd1d581ca7c25e0d4be
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+
+  run:
+
+about:
+  home: http://www.blosc.org
+  license:  MIT

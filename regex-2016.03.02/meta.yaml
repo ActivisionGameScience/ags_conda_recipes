@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: regex
+  version: "2016.03.02"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: regex-2016.03.02.tar.gz
+  url: https://pypi.python.org/packages/source/r/regex/regex-2016.03.02.tar.gz
+  md5: 7e6056389b39af87cf4e60d8ac88402a
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - regex = regex:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called regex that calls regex.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,13 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
-test:
+# test:
   # Python imports
-  imports:
-      - rocksdb
+  # imports:
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +50,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://bitbucket.org/mrabarnett/mrab-regex
+  license: Python Software Foundation License
+  summary: 'Alternative regular expression module, to replace re.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

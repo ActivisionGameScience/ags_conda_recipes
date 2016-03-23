@@ -1,23 +1,27 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: langid
+  version: "1.1.5"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: langid-1.1.5.tar.gz
+  url: https://pypi.python.org/packages/source/l/langid/langid-1.1.5.tar.gz
+  md5: fcafe0d63f4cd4b106441b4d89755e34
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - langid = langid:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called langid that calls langid.main()
 
+    - langid = langid.langid:main
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,24 +30,25 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - numpy >=1.10.0
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - numpy >=1.10.0
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - langid
+    - langid.tools
+    - langid.train
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+    - langid --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
@@ -53,9 +58,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/saffsd/langid.py
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'langid.py is a standalone Language Identification (LangID) tool.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

@@ -1,23 +1,27 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: python-slugify
+  version: "1.1.4"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: python-slugify-1.1.4.tar.gz
+  url: https://pypi.python.org/packages/source/p/python-slugify/python-slugify-1.1.4.tar.gz
+  md5: 8ea8d2cd3433aef40dab408bf0b49a76
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - python-slugify = python-slugify:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called python-slugify that calls python-slugify.main()
 
+    - slugify=slugify.slugify:main
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,24 +30,23 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - unidecode >=0.04.16
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - unidecode >=0.04.16
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - slugify
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+      #- slugify --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
@@ -53,9 +56,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/un33k/python-slugify
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'A Python Slugify application that handles Unicode'
 
 # See
 # http://docs.continuum.io/conda/build.html for

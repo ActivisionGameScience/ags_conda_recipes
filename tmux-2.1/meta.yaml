@@ -1,0 +1,23 @@
+package:
+  name: tmux
+  version: 2.1
+
+source:
+  git_url: https://github.com/tmux/tmux
+  git_tag: 2.1
+
+requirements:
+  build:
+    - automake
+    - libtool
+    - pkg-config
+    - ncurses
+    - libevent
+
+  run:
+    - ncurses
+    - libevent
+
+about:
+  home: tmux.sourceforge.net
+  license:  BSD

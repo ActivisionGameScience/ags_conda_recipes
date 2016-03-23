@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: oauthlib
+  version: "1.0.3"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: oauthlib-1.0.3.tar.gz
+  url: https://pypi.python.org/packages/source/o/oauthlib/oauthlib-1.0.3.tar.gz
+  md5: 02772867bf246b3b37f4ed22786c41f5
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - oauthlib = oauthlib:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called oauthlib that calls oauthlib.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,23 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - oauthlib
+    - oauthlib.oauth1
+    - oauthlib.oauth1.rfc5849
+    - oauthlib.oauth1.rfc5849.endpoints
+    - oauthlib.oauth2
+    - oauthlib.oauth2.rfc6749
+    - oauthlib.oauth2.rfc6749.clients
+    - oauthlib.oauth2.rfc6749.endpoints
+    - oauthlib.oauth2.rfc6749.grant_types
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -48,14 +55,18 @@ test:
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
 
-  # requires:
+  requires:
+    - blinker
+    - cryptography
+    - nose
+    - pyjwt >=1.0.0
     # Put any additional test requirements here.  For example
     # - nose
 
 about:
-  home: 
+  home: https://github.com/idan/oauthlib
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'A generic, spec-compliant, thorough implementation of the OAuth request-signing logic'
 
 # See
 # http://docs.continuum.io/conda/build.html for

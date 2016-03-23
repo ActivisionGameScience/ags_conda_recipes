@@ -1,0 +1,18 @@
+package:
+  name: libtool
+  version: 2.4.6
+
+source:
+  fn: libtool-2.4.6.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.gz
+
+requirements:
+  build:
+    - autoconf
+
+  run:
+    - autoconf
+
+about:
+  home: https://www.gnu.org/software/libtool/
+  license:  GPLv3
