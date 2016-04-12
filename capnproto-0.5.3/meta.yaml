@@ -1,0 +1,21 @@
+package:
+  name: capnproto
+  version: 0.5.3
+
+source:
+  fn: v0.5.3.tar.gz
+  url: https://github.com/sandstorm-io/capnproto/archive/v0.5.3.tar.gz 
+  md5: 909bd13ad6b8bc840ac78ab8f5bcb0a4
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+
+  run:
+
+about:
+  home: http://capnproto.org
+  license:  MIT
