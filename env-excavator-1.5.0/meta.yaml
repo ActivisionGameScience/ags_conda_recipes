@@ -1,0 +1,61 @@
+package:
+  name: env-excavator
+  version: "1.5.0"
+
+source:
+  fn: env-excavator-1.5.0.tar.gz
+  url: https://pypi.python.org/packages/ad/1d/42fedccca29ce7e772b8c6b138d01019f1993cf293461d563708fd3692ed/env-excavator-1.5.0.tar.gz
+  md5: be5d440fcebd7dcb73d7e0f20a158d2c
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - env-excavator = env-excavator:main
+    #
+    # Would create an entry point called env-excavator that calls env-excavator.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - excavator
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/simpleenergy/env-excavator
+  license: BSD License
+  summary: 'Tools for exconverting environment variables to native python objects'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
