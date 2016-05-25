@@ -1,0 +1,18 @@
+package:
+  name: ncurses
+  version: 6.0
+
+source:
+  fn: ncurses-6.0.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.0.tar.gz
+  md5: ee13d052e1ead260d7c28071f46eefb1
+
+build:
+  number: 0
+
+  binary_has_prefix_files:
+      - lib/libncursesw.so.6.0
+
+about:
+  home: http://www.gnu.org/software/ncurses/
+  license:  Free software (X11 License)

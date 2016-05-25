@@ -1,0 +1,26 @@
+
+package:
+    name: ant
+    version: 1.9.6
+source:
+    fn: apache-ant-1.9.6-bin.tar.bz2
+    url: http://ftp.ps.pl/pub/apache/ant/binaries/apache-ant-1.9.6-bin.tar.bz2
+    md5: 9a966bfde100aa696f8a32cba03bce21
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - jdk
+    run:
+        - jdk
+
+test:
+    commands:
+        - ant -version
+
+about:
+    home: http://ant.apache.org/
+    license: Apache License v2.0
+

@@ -1,0 +1,10 @@
+--- numpydoc/docscrape_sphinx.py
++++ numpydoc/docscrape_sphinx-new.py
+@@ -233,6 +233,7 @@
+         out += self._str_returns('Yields')
+         for param_list in ('Other Parameters', 'Raises', 'Warns'):
+             out += self._str_param_list(param_list)
++        out += self._str_section('Side Effects')
+         out += self._str_warnings()
+         out += self._str_see_also(func_role)
+         out += self._str_section('Notes')

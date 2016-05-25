@@ -1,23 +1,27 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: python-nvd3
+  version: "0.14.2"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: python-nvd3-0.14.2.tar.gz
+  url: https://pypi.python.org/packages/source/p/python-nvd3/python-nvd3-0.14.2.tar.gz
+  md5: 3a9cc3024368f2542048227a90459cfa
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - python-nvd3 = python-nvd3:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called python-nvd3 that calls python-nvd3.main()
 
+    - nvd3 = nvd3.NVD3Chart:_main
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,24 +30,25 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - python-slugify >=1.1.4
+    - jinja2 >=2.8
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - python-slugify >=1.1.4
+    - jinja2 >=2.8
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - nvd3
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+    - nvd3 --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
@@ -53,9 +58,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: http://github.com/areski/python-nvd3
+  license: MIT License
+  summary: 'Python NVD3 - Chart Library for d3.js'
 
 # See
 # http://docs.continuum.io/conda/build.html for

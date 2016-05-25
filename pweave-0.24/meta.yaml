@@ -1,23 +1,32 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pweave
+  version: "0.24"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: Pweave-0.24.tar.gz
+  url: https://pypi.python.org/packages/source/P/Pweave/Pweave-0.24.tar.gz
+  md5: 872c858eda6370ba87cf48dcbe352710
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pweave = pweave:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pweave that calls pweave.main()
 
+    - Pweave = pweave.scripts:weave
+    - pweave = pweave.scripts:weave
+    - Ptangle = pweave.scripts:tangle
+    - ptangle = pweave.scripts:tangle
+    - pypublish = pweave.scripts:publish
+    - pweave-convert = pweave.scripts:convert
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,24 +35,26 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - pweave
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+    - Pweave --help
+    - pweave --help
+    - Ptangle --help
+    - ptangle --help
+    - pypublish --help
+    - pweave-convert --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
@@ -53,9 +64,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: http://mpastell.com/pweave
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'Scientific reports with embedded python computations with reST, LaTeX or markdown'
 
 # See
 # http://docs.continuum.io/conda/build.html for

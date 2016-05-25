@@ -1,0 +1,32 @@
+package:
+  name: git
+  version: 2.7.4
+
+source:
+  fn: v2.7.4.tar.gz
+  url: https://github.com/git/git/archive/v2.7.4.tar.gz
+
+build:
+
+  # git hardcodes paths to external utilities (e.g. curl)
+  detect_binary_files_with_prefix: true
+
+requirements:
+
+  build:
+    - expat
+    - openssl
+    - zlib
+    - curl
+    - gettext
+
+  run:
+    - expat
+    - openssl
+    - zlib
+    - curl
+    - gettext
+
+about:
+  home: https://github.com/git/git
+  license:  LGPL

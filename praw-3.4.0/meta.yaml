@@ -1,0 +1,76 @@
+package:
+  name: praw
+  version: "3.4.0"
+
+source:
+  fn: praw-3.4.0.tar.gz
+  url: https://pypi.python.org/packages/source/p/praw/praw-3.4.0.tar.gz
+  md5: fba1e128feed697dc5c5893d0007331d
+  patches:
+   # List any patch files here
+    - setup.py.patch
+
+build:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - praw = praw:main
+    #
+    # Would create an entry point called praw that calls praw.main()
+
+    - praw-multiprocess = praw.multiprocess:run
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - decorator >=4.0.9,<4.1
+    - requests >=2.3.0
+    - six >=1.10
+    - update_checker ==0.11
+
+  run:
+    - python
+    - decorator >=4.0.9,<4.1
+    - requests >=2.3.0
+    - six >=1.10
+    - update_checker ==0.11
+    - mock
+
+test:
+  # Python imports
+  imports:
+    - praw
+
+  commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+    - praw-multiprocess --help
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  requires:
+    - betamax >=0.5.1,<0.6
+    - betamax-matchers >=0.2.0,<0.3
+    - betamax-serializers >=0.1.1,<0.2
+    - mock ==1.0.1
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://praw.readthedocs.org/
+  license: GNU General Public License (GPL)
+  summary: "PRAW, an acronym for `Python Reddit API Wrapper`, is a python package that allows for simple access to reddit's API."
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

@@ -1,23 +1,27 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pyjwt
+  version: "1.4.0"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: PyJWT-1.4.0.tar.gz
+  url: https://pypi.python.org/packages/source/P/PyJWT/PyJWT-1.4.0.tar.gz
+  md5: 2f9bd9226d72b13d19d2c557114d03dc
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pyjwt = pyjwt:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pyjwt that calls pyjwt.main()
 
+    - jwt = jwt.__main__:main
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,36 +30,40 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - pytest-runner
+    - pytest-cov
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - jwt
+    - jwt.contrib
+    - jwt.contrib.algorithms
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+    - jwt --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
 
-  # requires:
+  requires:
+    - pytest
+    - pytest-cov
+    - pytest-runner
     # Put any additional test requirements here.  For example
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: http://github.com/jpadilla/pyjwt
+  license: MIT License
+  summary: 'JSON Web Token implementation in Python'
 
 # See
 # http://docs.continuum.io/conda/build.html for

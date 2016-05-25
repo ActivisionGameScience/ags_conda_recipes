@@ -1,23 +1,14 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: assertpy
+  version: !!str 0.9
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
-#  patches:
-   # List any patch files here
-   # - fix.patch
+  fn: assertpy-0.9.tar.gz
+  url: https://pypi.python.org/packages/source/a/assertpy/assertpy-0.9.tar.gz
+  md5: f302f4089e38c79e461356dc048f556c 
 
-# build:
-  # preserve_egg_dir: True
-  # entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - python-snappy = python-snappy:main
-    #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
-
+build:
+  noarch_python: True
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,19 +17,13 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
-  # Python imports
   imports:
-      - rocksdb
+    - assertpy
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +38,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/ActivisionGameScience/assertpy
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'Assertion framework for python unit testing with a fluent API'
 
 # See
 # http://docs.continuum.io/conda/build.html for

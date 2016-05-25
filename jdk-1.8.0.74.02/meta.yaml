@@ -1,0 +1,21 @@
+package:
+  name: jdk
+  version: !!str 1.8.0.74.02
+
+requirements:
+  build:
+    - curl
+
+test:
+  commands:
+    - java -version
+
+build:
+
+  # java is already linked relative to $ORIGIN, so we need to turn
+  # off conda's relocation mechanism because it screws it up
+  binary_relocation: false
+
+about:
+  home: http://www.oracle.com/technetwork/java/javase/
+  license: Oracle Binary Code License Agreement

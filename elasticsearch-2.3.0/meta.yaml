@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: elasticsearch
+  version: "2.3.0"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: elasticsearch-2.3.0.tar.gz
+  url: https://pypi.python.org/packages/source/e/elasticsearch/elasticsearch-2.3.0.tar.gz
+  md5: 2550f3b51629cf1ef9636608af92c340
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - elasticsearch = elasticsearch:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called elasticsearch that calls elasticsearch.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,20 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - urllib3 >=1.8,<2.0
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - urllib3 >=1.8,<2.0
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - elasticsearch
+    - elasticsearch.client
+    - elasticsearch.connection
+    - elasticsearch.helpers
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -48,14 +52,20 @@ test:
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
 
-  # requires:
+  requires:
+    - coverage
+    - mock
+    - nose
+    - nosexcover
+    - pyaml
+    - requests >=1.0.0,<3.0.0
     # Put any additional test requirements here.  For example
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/elastic/elasticsearch-py
+  license: Apache Software License
+  summary: 'Python client for Elasticsearch'
 
 # See
 # http://docs.continuum.io/conda/build.html for

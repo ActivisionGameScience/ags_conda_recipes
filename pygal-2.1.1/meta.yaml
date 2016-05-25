@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pygal
+  version: "2.1.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: pygal-2.1.1.tar.gz
+  url: https://pypi.python.org/packages/source/p/pygal/pygal-2.1.1.tar.gz
+  md5: 0ef6507ecd5abe179fee6abe23989af9
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pygal = pygal:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pygal that calls pygal.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,18 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - pygal
+    - pygal.graph
+    - pygal.maps
+    - pygal.test
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -48,14 +50,18 @@ test:
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
 
-  # requires:
+  requires:
+    - cairosvg
+    - flask
+    - pyquery
+    - pytest
     # Put any additional test requirements here.  For example
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: http://pygal.org/
+  license: GNU Lesser General Public License v3 or later (LGPLv3+)
+  summary: 'A python svg graph plotting library'
 
 # See
 # http://docs.continuum.io/conda/build.html for

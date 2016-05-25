@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pytest-cov
+  version: "2.2.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: pytest-cov-2.2.1.tar.gz
+  url: https://pypi.python.org/packages/source/p/pytest-cov/pytest-cov-2.2.1.tar.gz
+  md5: d4c65c5561343e6c6a583d5fd29e6a63
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
-  # preserve_egg_dir: True
+build:
+  # noarch_python: True
+  preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pytest-cov = pytest-cov:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pytest-cov that calls pytest-cov.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,20 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - pytest >=2.6.0
+    - coverage >=3.7.1
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - setuptools
+    - pytest >=2.6.0
+    - coverage >=3.7.1
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - pytest_cov
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +57,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/pytest-dev/pytest-cov
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: 'Pytest plugin for measuring coverage.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

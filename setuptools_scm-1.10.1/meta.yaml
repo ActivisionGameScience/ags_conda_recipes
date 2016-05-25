@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: setuptools_scm
+  version: "1.10.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: setuptools_scm-1.10.1.tar.bz2
+  url: https://pypi.python.org/packages/source/s/setuptools_scm/setuptools_scm-1.10.1.tar.bz2
+  md5: 99823e2cd564b996f18820a065f0a974
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
-  # preserve_egg_dir: True
+build:
+  # noarch_python: True
+  preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - setuptools_scm = setuptools_scm:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called setuptools_scm that calls setuptools_scm.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,16 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - setuptools
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - setuptools_scm
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +53,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/pypa/setuptools_scm/
+  license: MIT License
+  summary: 'the blessed package to manage your versions by scm tags'
 
 # See
 # http://docs.continuum.io/conda/build.html for

@@ -1,23 +1,27 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pycapnp
+  version: "0.5.7"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: pycapnp-0.5.7.tar.gz
+  url: https://pypi.python.org/packages/source/p/pycapnp/pycapnp-0.5.7.tar.gz
+  md5: d47396d6724593afcbb728b87ac6de07
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
+build:
+  # noarch_python: True
   # preserve_egg_dir: True
-  # entry_points:
+  entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pycapnp = pycapnp:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pycapnp that calls pycapnp.main()
 
+    - capnpc-cython = capnp._gen:main
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
@@ -26,24 +30,22 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
     - cython
-    - bzip2
+    - setuptools
 
   run:
     - python
-    - rocksdb
-    - bzip2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - capnp
 
-  # commands:
+  commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
+      #    - capnpc-cython --help
 
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
@@ -53,9 +55,9 @@ test:
     # - nose
 
 about:
-  home: 
+  home: https://github.com/jparyani/pycapnp
   license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  summary: "A cython wrapping of the C++ Cap'n Proto library"
 
 # See
 # http://docs.continuum.io/conda/build.html for

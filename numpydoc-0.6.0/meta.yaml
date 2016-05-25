@@ -1,22 +1,26 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: numpydoc
+  version: !!str 0.6.0
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
-#  patches:
+  fn: numpydoc-0.6.0.tar.gz
+  url: https://pypi.python.org/packages/source/n/numpydoc/numpydoc-0.6.0.tar.gz
+  md5: 5f1763c44e613850d56ba1b1cf1cb146
+
+  patches:
    # List any patch files here
-   # - fix.patch
+   - docscrape_0.6.0.patch
+   - docscrape_sphinx_0.6.0.patch
 
 # build:
-  # preserve_egg_dir: True
-  # entry_points:
+  #preserve_egg_dir: True
+  #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - numpydoc = numpydoc:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called numpydoc that calls numpydoc.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,21 +30,19 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - sphinx
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - sphinx
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - numpydoc
 
-  # commands:
+  #commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
@@ -53,9 +55,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/numpy/numpydoc
+  license:  BSD License
+  summary: 'Sphinx extension to support docstrings in Numpy format'
 
 # See
 # http://docs.continuum.io/conda/build.html for

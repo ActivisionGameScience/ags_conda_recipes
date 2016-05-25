@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: betamax
+  version: "0.5.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: betamax-0.5.1.tar.gz
+  url: https://pypi.python.org/packages/source/b/betamax/betamax-0.5.1.tar.gz
+  md5: 349e69e1a9da664a8ab8c0f545e2e38f
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
-  # preserve_egg_dir: True
+build:
+  # noarch_python: True
+  preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - betamax = betamax:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called betamax that calls betamax.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,22 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - requests >=2.0
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - setuptools
+    - requests >=2.0
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - betamax
+    - betamax.cassette
+    - betamax.fixtures
+    - betamax.matchers
+    - betamax.serializers
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +59,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/sigmavirus24/betamax
+  license: yes
+  summary: 'A VCR imitation for python-requests'
 
 # See
 # http://docs.continuum.io/conda/build.html for

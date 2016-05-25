@@ -1,10 +1,10 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pykafka
+  version: "2.3.0"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
-#  patches:
+  fn: 2.3.0.tar.gz
+  url: https://github.com/Parsely/pykafka/archive/2.3.0.tar.gz
    # List any patch files here
    # - fix.patch
 
@@ -26,19 +26,23 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - gevent
+    - librdkafka
+    - tabulate
+    - kazoo
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - gevent
+    - librdkafka
+    - tabulate
+    - kazoo
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - pykafka
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +57,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: http://github.com/Parsely/pykafka
+  license: Apache License 2.0
+  summary: 'Python library to talk to Kafka topics'
 
 # See
 # http://docs.continuum.io/conda/build.html for

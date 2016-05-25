@@ -1,0 +1,22 @@
+package:
+  name: zsh
+  version: 5.2
+
+source:
+  fn: zsh-5.2.tar.gz
+  url: http://sourceforge.net/projects/zsh/files/zsh/5.2/zsh-5.2.tar.gz
+
+build:
+
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - ncurses
+
+  run:
+    - ncurses
+
+about:
+  home: zsh.sourceforge.net
+  license:  BSD-like

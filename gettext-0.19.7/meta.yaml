@@ -1,0 +1,20 @@
+package:
+  name: gettext
+  version: 0.19.7
+
+source:
+  fn: gettext-0.19.7.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.7.tar.gz
+
+build:
+
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: https://www.gnu.org/software/gettext/
+  license:  GPLv3

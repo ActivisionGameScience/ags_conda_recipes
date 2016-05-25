@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: pandasql
+  version: "0.7.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: pandasql-0.7.1.tar.gz
+  url: https://pypi.python.org/packages/source/p/pandasql/pandasql-0.7.1.tar.gz
+  md5: 3e7bfc0f0da62d679b339842f3615e23
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - pandasql = pandasql:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called pandasql that calls pandasql.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,22 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - numpy
+    - pandas
+    - sqlalchemy
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - numpy
+    - pandas
+    - sqlalchemy
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - pandasql
+    - pandasql.tests
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +59,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/yhat/pandasql/
+  license: yes
+  summary: 'sqldf for pandas'
 
 # See
 # http://docs.continuum.io/conda/build.html for

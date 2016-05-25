@@ -1,0 +1,22 @@
+package:
+  name: cmake
+  version: 3.2.3
+
+source:
+  fn: cmake-3.2.3.tar.gz [not win]
+  fn: cmake-3.2.3-win32-x86.zip [win]
+  url: http://www.cmake.org/files/v3.2/cmake-3.2.3.tar.gz [not win]
+  url: http://www.cmake.org/files/v3.2/cmake-3.2.3-win32-x86.zip [win]
+#  md5: 4cb3ff35b2472aae70f542116d616e63 [not win]
+
+build:
+  number: 0
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: http://www.cmake.org
+  license:  BSD 3-clause

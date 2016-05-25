@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: betamax-serializers
+  version: "0.1.1"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: betamax-serializers-0.1.1.tar.gz
+  url: https://pypi.python.org/packages/source/b/betamax-serializers/betamax-serializers-0.1.1.tar.gz
+  md5: fff053493b588a36a40c5431af7e1879
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - betamax-serializers = betamax-serializers:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called betamax-serializers that calls betamax-serializers.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,17 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - betamax >=0.3.2
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - betamax >=0.3.2
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - betamax_serializers
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +54,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://gitlab.com/betamax/serializers
+  license: yes
+  summary: 'A set of third-party serializers for Betamax'
 
 # See
 # http://docs.continuum.io/conda/build.html for

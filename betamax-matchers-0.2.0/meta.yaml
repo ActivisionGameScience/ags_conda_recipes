@@ -1,22 +1,25 @@
 package:
-  name: pyrocksdb
-  version: "0.5"
+  name: betamax-matchers
+  version: "0.2.0"
 
 source:
-  git_url: https://github.com/stephan-hof/pyrocksdb.git
+  fn: betamax-matchers-0.2.0.tar.gz
+  url: https://pypi.python.org/packages/source/b/betamax-matchers/betamax-matchers-0.2.0.tar.gz
+  md5: b82264fc3628e261353261a654370535
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
+  # noarch_python: True
   # preserve_egg_dir: True
   # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - python-snappy = python-snappy:main
+    # - betamax-matchers = betamax-matchers:main
     #
-    # Would create an entry point called python-snappy that calls python-snappy.main()
+    # Would create an entry point called betamax-matchers that calls betamax-matchers.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,19 +29,19 @@ source:
 requirements:
   build:
     - python
-    - rocksdb
-    - cython
-    - bzip2
+    - setuptools
+    - betamax >=0.3.2
+    - requests-toolbelt >=0.4.0
 
   run:
     - python
-    - rocksdb
-    - bzip2
+    - betamax >=0.3.2
+    - requests-toolbelt >=0.4.0
 
 test:
   # Python imports
   imports:
-      - rocksdb
+    - betamax_matchers
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -53,9 +56,9 @@ test:
     # - nose
 
 about:
-  home: 
-  license: BSD License
-  summary: 'Python library for the snappy compression library from Google'
+  home: https://github.com/sigmavirus24/betamax_matchers
+  license: yes
+  summary: 'A VCR imitation for python-requests'
 
 # See
 # http://docs.continuum.io/conda/build.html for
