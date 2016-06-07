@@ -1,0 +1,73 @@
+package:
+  name: google-apputils
+  version: "0.4.2"
+
+source:
+  fn: google-apputils-0.4.2.tar.gz
+  url: https://pypi.python.org/packages/69/66/a511c428fef8591c5adfa432a257a333e0d14184b6c5d03f1450827f7fe7/google-apputils-0.4.2.tar.gz
+  md5: fb9fadf621dbecf28c8dabb5fe37ddb3
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # noarch_python: True
+  preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - google-apputils = google-apputils:main
+    #
+    # Would create an entry point called google-apputils that calls google-apputils.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - python-dateutil >=1.4
+    - python-gflags >=1.4
+    - pytz >=2010
+
+  run:
+    - python
+    - setuptools
+    - python-dateutil >=1.4
+    - python-gflags >=1.4
+    - pytz >=2010
+
+test:
+  # Python imports
+  imports:
+    - google
+    - google.apputils
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  requires:
+    - mox >=0.5
+    - python-dateutil >=1.4
+    - python-gflags >=1.4
+    - pytz >=2010
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://code.google.com/p/google-apputils-python
+  license: UNKNOWN
+  summary: 'UNKNOWN'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
