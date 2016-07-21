@@ -5,7 +5,7 @@ package:
 source:
   fn: langid-1.1.6.tar.gz
   url: https://pypi.python.org/packages/source/l/langid/langid-1.1.6.tar.gz
-  md5: fcafe0d63f4cd4b106441b4d89755e34
+  md5: 10b358148b9d5b7ba4576d89599ea396
 #  patches:
    # List any patch files here
    # - fix.patch
