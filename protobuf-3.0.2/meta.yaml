@@ -1,0 +1,27 @@
+package:
+  name: protobuf
+  version: 3.0.2
+
+source:
+  git_url: https://github.com/google/protobuf
+  git_tag: v3.0.2
+
+requirements:
+  build:
+    - automake
+    - libtool
+    - pkg-config
+    - python
+    - cython
+    - setuptools
+    - google-apputils
+
+  run:
+
+    - python
+    - cython
+    - google-apputils
+
+about:
+  home: https://developers.google.com/protocol-buffers/
+  license:  BSD 3-clause
