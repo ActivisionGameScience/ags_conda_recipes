@@ -1,0 +1,20 @@
+package:
+  name: glog
+  version: 0.3.4
+
+source:
+  fn: v0.3.4.tar.gz
+  url: https://github.com/google/glog/archive/v0.3.4.tar.gz 
+  md5:  
+
+build:
+  number: 0
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: http://github.org/google/glog
+  license:  BSD 3-clause

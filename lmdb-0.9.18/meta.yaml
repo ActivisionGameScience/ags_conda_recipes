@@ -1,0 +1,20 @@
+package:
+  name: lmdb
+  version: 0.9.18
+
+source:
+  fn: LMDB_0.9.18.tar.gz
+  url: https://github.com/LMDB/lmdb/archive/LMDB_0.9.18.tar.gz 
+  md5:  
+
+build:
+  number: 0
+
+requirements:
+  build:
+
+  run:
+
+about:
+  home: http://github.org/LMDB/lmdb
+  license:  OpenLDAP

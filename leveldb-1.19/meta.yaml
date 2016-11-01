@@ -1,0 +1,22 @@
+package:
+  name: leveldb
+  version: 1.19
+
+source:
+  fn: v1.19.tar.gz
+  url: https://github.com/google/leveldb/archive/v1.19.tar.gz 
+  md5:  
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - snappy
+
+  run:
+    - snappy
+
+about:
+  home: http://github.org/google/leveldb
+  license:  BSD 3-clause
