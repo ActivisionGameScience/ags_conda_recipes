@@ -18,11 +18,23 @@ requirements:
     - glog
     - gflags
     - hdf5
+    - h5py
     - leveldb
     - lmdb
     - opencv
     - python
+    - cython
     - numpy
+    - scipy
+    - scikit-image
+    - networkx 
+    - nose
+    - pandas
+    - python-dateutil
+    - python-gflags
+    - pyyaml
+    - pillow
+    - six
 
   run:
     - boost
@@ -30,11 +42,23 @@ requirements:
     - glog
     - gflags
     - hdf5
+    - h5py
     - leveldb
     - lmdb
     - opencv
     - python
+    - cython
     - numpy
+    - scipy
+    - scikit-image
+    - networkx 
+    - nose
+    - pandas
+    - python-dateutil
+    - python-gflags
+    - pyyaml
+    - pillow
+    - six
 
 about:
   home: http://github.org/BVLC/caffe
