@@ -1,0 +1,15 @@
+--- python/caffe/_caffe.cpp	2016-11-01 21:28:04.000000000 -0600
++++ python/caffe/_caffe.cpp	2016-11-01 21:26:11.000000000 -0600
+@@ -256,7 +256,11 @@
+         bp::with_custodian_and_ward<1, 2, bp::with_custodian_and_ward<1, 3> >())
+     .def("save", &Net_Save);
+ 
+-  bp::class_<Blob<Dtype>, shared_ptr<Blob<Dtype> >, boost::noncopyable>(
++  // Fix for caffe pythonwrapper for boost 1.6
++  boost::python::register_ptr_to_python<boost::shared_ptr<Blob<Dtype> > >();
++  // End fix
++    
++  bp::class_<Blob<Dtype>, boost::shared_ptr<Blob<Dtype> >, boost::noncopyable>(
+     "Blob", bp::no_init)
+     .add_property("shape",
+         bp::make_function(

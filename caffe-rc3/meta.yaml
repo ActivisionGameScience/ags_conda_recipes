@@ -6,6 +6,9 @@ source:
   fn: rc3.tar.gz
   url: https://github.com/BVLC/caffe/archive/rc3.tar.gz 
   md5:  
+  patches:
+    - FindvecLib.cmake.patch
+    - _caffe_cpp.patch
 
 build:
   number: 0

@@ -6,10 +6,6 @@ ld && cd build
 
 
 if [[ $(uname) == "Darwin" ]]; then
-    # these two lines should be deleted once we move past version rc3 because the cmake file has since been fixed
-    mv ../cmake/Modules/FindvecLib.cmake ../cmake/Modules/FindvecLib.cmake.orig
-    sed "s/vecLib.h/cblas.h/g" ../cmake/Modules/FindvecLib.cmake.orig > ../cmake/Modules/FindvecLib.cmake
-
     pythonlib=`find $PREFIX -name "libpython*.dylib"`
     python_h=`find $PREFIX -name "Python.h"`
     pythoninc=`dirname $python_h` 
