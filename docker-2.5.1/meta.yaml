@@ -1,0 +1,80 @@
+package:
+  name: docker
+  version: "2.5.1"
+
+source:
+  fn: docker-2.5.1.tar.gz
+  url: https://pypi.python.org/packages/ea/80/f32e70f338055922eb996b05ee41b14acde925216f4e7bba16788a377763/docker-2.5.1.tar.gz
+  md5: 7d917152976df075e6e90ee853df641f
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # noarch: python
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - docker = docker:main
+    #
+    # Would create an entry point called docker that calls docker.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - requests >=2.5.2,!=2.11.0,!=2.12.2,!=2.18.0
+    - six >=1.4.0
+    - websocket-client >=0.32.0
+    - docker-pycreds >=0.2.1
+
+  run:
+    - python
+    - requests >=2.5.2,!=2.11.0,!=2.12.2,!=2.18.0
+    - six >=1.4.0
+    - websocket-client >=0.32.0
+    - docker-pycreds >=0.2.1
+
+test:
+  # Python imports
+  imports:
+    - docker
+    - docker.api
+    - docker.models
+    - docker.transport
+    - docker.types
+    - docker.utils
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  requires:
+    #- coverage ==3.7.1
+    #- flake8 ==2.4.1
+    #- mock ==1.0.1
+    #- pytest ==2.9.1
+    #- pytest-cov ==2.1.0
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/docker/docker-py
+  license: Apache Software License
+  summary: 'A Python library for the Docker Engine API.'
+  license_family: APACHE
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
