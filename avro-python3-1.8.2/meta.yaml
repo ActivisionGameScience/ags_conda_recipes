@@ -1,0 +1,62 @@
+package:
+  name: avro-python3
+  version: "1.8.2"
+
+source:
+  fn: avro-python3-1.8.2.tar.gz
+  url: https://pypi.python.org/packages/63/b4/7a81640bb69c844c912987007ba36276c29690d6fde2cd41fec16cd24c3b/avro-python3-1.8.2.tar.gz
+  md5: 05369070c2b4ba80bb110858dc753dbd
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # noarch: python
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - avro-python3 = avro-python3:main
+    #
+    # Would create an entry point called avro-python3 that calls avro-python3.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - avro
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://avro.apache.org/
+  license: Apache License 2.0
+  summary: 'Avro is a serialization and RPC framework.'
+  license_family: APACHE
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
