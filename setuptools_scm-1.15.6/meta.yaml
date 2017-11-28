@@ -1,0 +1,63 @@
+package:
+  name: setuptools_scm
+  version: "1.15.6"
+
+source:
+  fn: setuptools_scm-1.15.6.tar.gz
+  url: https://pypi.python.org/packages/03/6d/aafdd01edd227ee879b691455bf19895091872af7e48192bea1758c82032/setuptools_scm-1.15.6.tar.gz
+  md5: f17493d53f0d842bb0152f214775640b
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # noarch: python
+  preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - setuptools_scm = setuptools_scm:main
+    #
+    # Would create an entry point called setuptools_scm that calls setuptools_scm.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - setuptools
+
+test:
+  # Python imports
+  imports:
+    - setuptools_scm
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/pypa/setuptools_scm/
+  license: MIT License
+  summary: 'the blessed package to manage your versions by scm tags'
+  license_family: MIT
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

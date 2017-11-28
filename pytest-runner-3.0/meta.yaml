@@ -1,0 +1,64 @@
+package:
+  name: pytest-runner
+  version: "3.0"
+
+source:
+  fn: pytest-runner-3.0.tar.gz
+  url: https://pypi.python.org/packages/65/b4/ae89338cd2d81e2cc54bd6db2e962bfe948f612303610d68ab24539ac2d1/pytest-runner-3.0.tar.gz
+  md5: 8f8363a52bbabc4cedd5e239beb2ba11
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # noarch: python
+  preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - pytest-runner = pytest-runner:main
+    #
+    # Would create an entry point called pytest-runner that calls pytest-runner.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - setuptools_scm
+
+  run:
+    - python
+    - setuptools
+    - setuptools_scm
+
+# test:
+  # Python imports
+  # imports:
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/pytest-dev/pytest-runner
+  license: MIT License
+  summary: 'Invoke py.test as distutils command with dependency resolution'
+  license_family: MIT
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

@@ -1,0 +1,24 @@
+package:
+  name: snappy
+  version: 1.1.7
+
+source:
+  fn: snappy-1.1.7.tar.gz
+  url: https://github.com/google/snappy/archive/1.1.7.tar.gz
+  md5: ee9086291c9ae8deb4dac5e0b85bf54a
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - automake
+    - autoconf
+    - libtool
+    - cmake
+
+  run:
+
+about:
+  home: https://github.com/google/snappy
+  license:  BSD
