@@ -8,6 +8,8 @@ source:
 
 requirements:
   build:
+#    - m4  Need to just apt-get install m4 because some dumbass hardcoded /usr/bin/m4
+    - autoconf
     - automake
     - libtool
     - pkg-config
