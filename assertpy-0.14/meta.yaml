@@ -1,0 +1,43 @@
+package:
+  name: assertpy
+  version: !!str 0.14
+
+source:
+  fn: assertpy-0.14.tar.gz
+  url: https://files.pythonhosted.org/packages/81/81/066b50ac8e8946ed5a87c704fb08916454b7b5eb2f9cf30b73475495c4b0/assertpy-0.14.tar.gz
+  sha256: 1b7e591f490616e3f2707b6e511b91b188a8c6facb3a4ff0db2339b0a41d73c4
+
+build:
+  noarch: python
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+
+test:
+  imports:
+    - assertpy
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/ActivisionGameScience/assertpy
+  license: BSD License
+  summary: 'Assertion library for python unit testing with a fluent API'
